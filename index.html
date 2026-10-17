@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Oblique, a Los Angeles design studio</title>
 <meta name="description" content="Oblique is a Los Angeles design studio for digital, content and experiential work. Email Josie or book a short first call.">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#060606">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,13 +16,16 @@
   /* Layout follows koto.com's homepage, section for section (see koto-reference.md).
      Type, color, copy and media are Oblique's own. Tokens: see design-plan.md. */
   :root {
-    --night: #060606;
-    --stucco: #F2F0EB;
-    --haze: #9C9A94;
-    --dusk: #7A7873;
-    --asphalt: #141414;
-    --line: #2A2A2A;
-    --bougainvillea: #F23D9C;
+    --white: #FFFFFF;
+    --ink: #0E0E14;
+    --grey: #55555E;
+    --dusk: #6B6B73;
+    --frost: #F2F2EF;
+    --line: #DCDCD6;
+    --blue: #1F2BFF;
+    --red: #E8262B;
+    --orange: #FF8A1E;
+    --yellow: #FFD60A;
 
     --font-sans: "Sofia Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --font-cond: "Sofia Sans Condensed", "Sofia Sans", "Arial Narrow", sans-serif;
@@ -44,12 +47,12 @@
   @media (min-width: 960px) { :root { --margin: 1.25rem; } }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html { background: var(--night); color: var(--haze); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  html { background: var(--white); color: var(--grey); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   body {
     margin: 0;
-    background: var(--night);
-    color: var(--haze);
+    background: var(--white);
+    color: var(--grey);
     font-family: var(--font-sans);
     font-size: var(--t-body);
     line-height: 1.4;
@@ -60,56 +63,47 @@
   h1, h2, h3 { font-weight: inherit; }
   ul, ol { padding: 0; list-style: none; }
   a { color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
-  a:hover { color: var(--stucco); }
-  :focus-visible { outline: 2px solid var(--bougainvillea); outline-offset: 3px; border-radius: 2px; }
+  a:hover { color: var(--ink); }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
   main:focus { outline: none; }
   .vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .skip { position: absolute; left: var(--margin); top: -6rem; z-index: 100; padding: 0.5rem 0.75rem; background: var(--stucco); color: var(--night); border-radius: var(--radius); font-size: var(--t-small); text-decoration: none; }
-  .skip:focus { top: 0.5rem; color: var(--night); }
+  .skip { position: absolute; left: var(--margin); top: -6rem; z-index: 100; padding: 0.5rem 0.75rem; background: var(--ink); color: var(--white); border-radius: var(--radius); font-size: var(--t-small); text-decoration: none; }
+  .skip:focus { top: 0.5rem; color: var(--white); }
   .wrap { width: 100%; max-width: 1680px; margin-inline: auto; padding-inline: var(--margin); }
 
   /* Koto's small labels: mono, uppercase. */
   .label { font-family: var(--font-mono); font-size: var(--t-label); line-height: 1.3; text-transform: uppercase; }
   /* Large condensed light type: Koto's headings and statements. */
-  .big { font-family: var(--font-cond); font-weight: 300; font-size: var(--t-big); line-height: 1.1; letter-spacing: -0.01em; color: var(--stucco); }
-  .grey { color: var(--haze); }
+  .big { font-family: var(--font-cond); font-weight: 300; font-size: var(--t-big); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); }
+  .grey { color: var(--grey); }
 
   /* Placeholders: every unknown stays visible in square brackets. */
-  .ph { background: var(--asphalt); border-radius: 3px; padding: 0 0.18em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-  .slot { position: relative; display: flex; align-items: flex-end; width: 100%; padding: 0.75rem; background: var(--asphalt); border: 1px dashed var(--line); color: var(--haze); font-size: var(--t-small); line-height: 1.4; border-radius: var(--radius-media); }
+  .ph { background: var(--frost); border-radius: 3px; padding: 0 0.18em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .slot { position: relative; display: flex; align-items: flex-end; width: 100%; padding: 0.75rem; background: var(--frost); border: 1px dashed var(--line); color: var(--grey); font-size: var(--t-small); line-height: 1.4; border-radius: var(--radius-media); }
 
-  /* Top bar: Koto. Floating panels: wordmark and section menu left, clock right. */
+  /* Top bar: wordmark left, pill tabs for each section, clock right. The current section's pill fills dark. */
   .topbar { position: fixed; inset: 0 0 auto 0; z-index: 20; pointer-events: none; }
-  .topbar-inner { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--gap); padding: var(--margin); }
-  .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--asphalt); border-radius: var(--radius); }
-  .brand-panel { position: relative; }
-  .wordmark { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem; color: var(--stucco); text-decoration: none; }
-  .menu summary { display: flex; align-items: center; gap: 0.75rem; min-height: 2.75rem; padding: 0 0.875rem; cursor: pointer; list-style: none; color: var(--haze); }
-  .menu summary::-webkit-details-marker { display: none; }
-  .menu summary:hover { color: var(--stucco); }
-  .menu-word { display: none; }
-  .chev { width: 0.5rem; height: 0.5rem; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: translateY(-25%) rotate(45deg); }
-  .menu[open] .chev { transform: translateY(25%) rotate(-135deg); }
-  .menu-panel { position: absolute; left: 0; top: calc(100% + 0.25rem); width: min(18rem, calc(100vw - 2 * var(--margin))); padding: 0.5rem; background: var(--asphalt); border-radius: var(--radius); }
-  .menu-panel a { display: block; padding: 0.5rem; text-decoration: none; border-radius: var(--radius); }
-  .menu-panel a:hover { background: var(--night); }
-  .menu-panel .t { display: block; color: var(--stucco); }
-  .menu-panel .s { display: block; color: var(--haze); }
-  .menu-channels { margin-top: 1rem; padding: 0.5rem; }
-  .menu-channels h2 { color: var(--haze); }
-  .menu-channels ul { margin-top: 0.5rem; }
-  .menu-channels a { padding: 0.25rem 0; color: var(--stucco); }
-  .clock-panel { padding: 0 0.875rem; color: var(--stucco); }
+  .topbar-inner { display: flex; align-items: flex-start; gap: var(--gap); padding: var(--margin); }
+  .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--frost); border-radius: var(--radius); }
+  .wordmark { padding: 0 0.875rem; color: var(--ink); text-decoration: none; }
+  .tabs { pointer-events: auto; min-width: 0; }
+  .tabs ul { display: flex; gap: 0.375rem; }
+  .tabs a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 1.125rem; background: var(--line); border-radius: 999px; color: var(--ink); font-size: 1.0625rem; text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
+  .tabs a:hover { background: #CDCDC6; }
+  .tabs a[aria-current="true"] { background: var(--ink); color: var(--white); }
+  .tabs a:focus-visible { outline-offset: 2px; border-radius: 999px; }
+  /* Section jumps land below the tab row. */
+  main section[id] { scroll-margin-top: 4.5rem; }
+  @media (max-width: 719px) { main section[id] { scroll-margin-top: 7.5rem; } }
+  .clock-panel { margin-left: auto; padding: 0 0.875rem; color: var(--ink); }
   .clock-panel time { font-variant-numeric: tabular-nums; }
   @media (max-width: 719px) {
-    .brand-panel { background: transparent; }
-    /* Keep the wordmark readable over scrolling text. */
-    .wordmark { background: var(--asphalt); border-radius: var(--radius); }
-    .brand-panel .menu { position: fixed; top: var(--margin); right: var(--margin); }
-    .brand-panel .menu summary { background: var(--asphalt); border-radius: var(--radius); }
-    .menu-current, .chev { display: none; }
-    .menu-word { display: inline; color: var(--stucco); }
-    .menu-panel { left: auto; right: 0; }
+    .topbar-inner { flex-wrap: wrap; padding-inline: 0; padding-bottom: 0.625rem; background: var(--white); pointer-events: auto; }
+    .wordmark { margin-left: var(--margin); }
+    /* Phones: the pill row sits under the wordmark and scrolls sideways. */
+    .tabs { flex-basis: 100%; overflow-x: auto; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tabs ul { padding-inline: var(--margin); width: max-content; }
     .clock-panel { display: none; }
   }
 
@@ -117,7 +111,7 @@
   .hero { position: relative; height: 100vh; height: 100svh; min-height: 30rem; }
   .slot-hero { position: absolute; inset: 0; height: 100%; border-radius: 0; border: 0; border-bottom: 1px dashed var(--line); align-items: flex-start; justify-content: flex-end; padding: 5rem var(--margin) 0; }
   .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: 2.5rem; pointer-events: none; }
-  .hero h1 { font-family: var(--font-cond); font-weight: 300; font-size: var(--t-hero); line-height: 1.05; letter-spacing: -0.01em; color: var(--stucco); max-width: 17em; }
+  .hero h1 { font-family: var(--font-cond); font-weight: 300; font-size: var(--t-hero); line-height: 1.05; letter-spacing: -0.01em; color: var(--ink); max-width: 17em; }
   .hero h1 span { display: block; }
 
   /* 2. Intro statement: Koto. One large paragraph, white then grey. */
@@ -125,86 +119,78 @@
   .intro p { max-width: 18em; }
   @media (min-width: 960px) { .intro p { max-width: 46%; min-width: 18em; } }
 
-  /* 3. Selected work: Koto. Type on the left stays put; one video per project on the right. */
+  /* 3. Partnerships: one lockup per partner. Name, More pill, line and figure on the left; a large video on the right. */
   .work { padding-top: 3.5rem; }
-  .work-head .current { display: none; }
-  .work-list { margin-top: 1.5rem; }
-  .project + .project { margin-top: 3rem; }
+  .work-head { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding-bottom: 1.25rem; }
+  .work-head h2 { color: var(--ink); }
+  .partner { display: grid; grid-template-areas: "top" "media" "line" "stat"; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .partner + .partner { margin-top: 4rem; }
+  .partner-top { grid-area: top; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 0.75rem 1rem; }
+  .partner-name { font-family: var(--font-cond); font-weight: 300; font-size: clamp(2.5rem, 1.6rem + 3vw, 4.75rem); line-height: 0.95; letter-spacing: -0.02em; color: var(--ink); }
+  .pill { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1.25rem; background: var(--line); border-radius: 999px; color: var(--ink); font-size: 1.0625rem; text-decoration: none; transition: background-color 200ms ease; }
+  .pill:hover { background: #CDCDC6; color: var(--ink); }
+  .partner-media { grid-area: media; margin-top: 1rem; }
   .slot-video { aspect-ratio: 4 / 3; }
-  .project-text { margin-top: 0.75rem; }
-  .project-name { color: var(--stucco); }
-  .project-title { color: var(--haze); }
-  .project-desc { margin-top: 0.75rem; max-width: var(--measure); font-size: var(--t-small); }
-  .project-credit { margin-top: 0.5rem; font-size: var(--t-small); color: var(--dusk); }
-  .card { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; }
-  .slot-thumb { flex: 0 0 2.5rem; width: 2.5rem; height: 2.5rem; padding: 0; align-items: center; justify-content: center; border-radius: var(--radius); font-size: 0.5625rem; }
-  .card-title { color: var(--stucco); font-size: var(--t-small); }
-  .card-meta { margin-top: 0.25rem; color: var(--haze); }
-  .more { display: flex; align-items: flex-end; justify-content: flex-end; min-height: 8rem; margin-top: var(--gap); padding: 1.25rem; background: var(--asphalt); border-radius: var(--radius); color: var(--stucco); text-decoration: none; }
+  .partner-line { grid-area: line; margin-top: 1.5rem; max-width: 17em; }
+  .partner-stat { grid-area: stat; margin-top: 1.5rem; }
+  .stat-figure { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-cond); font-weight: 300; font-size: var(--t-big); line-height: 1.1; color: var(--ink); }
+  /* Plus badge: a dark pill with a white cross, sized to the figure. */
+  .plus { position: relative; flex: 0 0 auto; width: 1.6em; height: 1em; background: var(--ink); border-radius: 999px; }
+  .plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 0.5em; height: 0.08em; background: var(--white); transform: translate(-50%, -50%); }
+  .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .stat-label { margin-top: 0.375rem; max-width: 20em; color: var(--grey); }
+  .more { display: flex; align-items: flex-end; justify-content: flex-end; min-height: 8rem; margin-top: 4rem; padding: 1.25rem; background: var(--frost); border-radius: var(--radius); color: var(--ink); text-decoration: none; }
   .more:hover .label { text-decoration: underline; }
-  .current-detail { display: none; }
-  @media (max-width: 959px) { .card-title { display: none; } }
   @media (min-width: 720px) { .slot-video { aspect-ratio: 16 / 9; } }
   @media (min-width: 960px) {
-    .work-grid { display: grid; grid-template-columns: minmax(0, 38fr) minmax(0, 62fr); column-gap: 1rem; }
-    /* Koto: the heading follows the intro, then sticks about a third down the screen. The first video starts below the fold. */
-    .work-aside-inner { position: sticky; top: 28vh; display: flex; flex-direction: column; height: calc(72vh - var(--margin)); }
-    .work-list { margin-top: 0; padding-top: 70vh; }
-    .project + .project { margin-top: var(--gap); }
-    .work-live .work-head .current { display: block; }
-    .work-live .project-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .work-live .project-media { opacity: 0.35; transition: opacity 300ms ease; }
-    .work-live .project.is-active .project-media { opacity: 1; }
-    .work-live .current-detail { display: flex; flex: 1; flex-direction: column; justify-content: flex-end; transition: opacity 160ms ease; }
-    .work-live .current-detail.is-fading { opacity: 0; }
-    .current-detail .project-desc { margin-top: 0; max-width: 24em; }
-    .current-detail .card { margin-top: 2rem; }
-  }
-  /* Short screens: no sticking, and each project keeps its own text. */
-  @media (min-width: 960px) and (max-height: 600px) {
-    .work-aside-inner { position: static; height: auto; }
-    .work-list { padding-top: 0; }
-    .work-live .work-head .current, .work-live .current-detail { display: none; }
-    .work-live .project-text { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; }
-    .work-live .project-media { opacity: 1; }
-    .project + .project { margin-top: 3rem; }
+    .partner { grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); grid-template-rows: auto 1fr auto; grid-template-areas: "top media" "line media" "stat media"; column-gap: 2rem; }
+    .partner + .partner { margin-top: 6rem; }
+    .partner-top { flex-direction: column; }
+    .partner-top .pill { align-self: flex-end; margin-top: 2rem; }
+    .partner-media { margin-top: 0; }
+    .partner-line { align-self: end; margin-top: 3rem; }
+    .partner-stat { margin-top: 2.5rem; }
   }
 
-  /* 4. Practices: Koto's news grid. One large card, two small ones. */
+  /* 4. Approach: Koto's news grid. One large card, two small ones. */
   .practices { padding-top: var(--section); }
   .practices-head { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
-  .practices-head h2 { color: var(--stucco); }
+  .practices-head h2 { color: var(--ink); }
   .cards { display: grid; gap: 2.5rem var(--gap); margin-top: 1.25rem; }
   .slot-card { aspect-ratio: 16 / 9; }
-  .practice h3 { margin-top: 0.75rem; color: var(--stucco); }
+  /* 5. IRL reuses the Approach grid: three equal cards with 4:3 photos. */
+  .slot-photo { aspect-ratio: 4 / 3; }
+  .practice h3 { margin-top: 0.75rem; color: var(--ink); }
   .practice p { margin-top: 0.375rem; max-width: var(--measure); font-size: var(--t-small); }
   .practice .services { color: var(--dusk); }
   .chip-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
-  .chip { display: inline-block; padding: 0.25rem 0.4rem; background: var(--asphalt); border-radius: 3px; color: var(--stucco); }
-  @media (min-width: 720px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .practice-lead { grid-column: 1 / -1; } }
+  .chip { display: inline-block; padding: 0.25rem 0.4rem; background: var(--frost); border-radius: 3px; color: var(--ink); }
+  @media (min-width: 720px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .practice-lead { grid-column: 1 / -1; } .irl-cards .practice:first-child { grid-column: 1 / -1; } }
   @media (min-width: 960px) {
     .cards { grid-template-columns: minmax(0, 1.57fr) minmax(0, 1fr) minmax(0, 1fr); }
     .practice-lead { grid-column: auto; }
+    .irl-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .irl-cards .practice:first-child { grid-column: auto; }
   }
 
-  /* 5. Contact: Koto. Heading and portrait card left, hairline rows right. */
+  /* 6. Contact: Koto. Heading and portrait card left, hairline rows right. */
   .contact { padding-top: var(--section); }
   .portrait { position: relative; width: min(100%, 23rem); margin-top: 2rem; }
   .slot-portrait { aspect-ratio: 5 / 3; align-items: flex-start; }
-  .portrait figcaption { position: absolute; left: 0.75rem; bottom: 0.75rem; color: var(--stucco); }
+  .portrait figcaption { position: absolute; left: 0.75rem; bottom: 0.75rem; color: var(--ink); }
   .rows { margin-top: 3rem; }
   .row { display: grid; gap: 0.375rem; padding: 1.25rem 0 3.5rem; border-top: 1px solid var(--line); }
-  .row h3 { color: var(--stucco); }
-  .row-line { color: var(--stucco); }
-  .row-sub { color: var(--haze); font-size: var(--t-small); }
+  .row h3 { color: var(--ink); }
+  .row-line { color: var(--ink); }
+  .row-sub { color: var(--grey); font-size: var(--t-small); }
   .row-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.875rem; margin-top: 0.25rem; font-size: var(--t-small); }
   .row-stack li + li { margin-top: 0.25rem; }
   .row-stack a { display: inline-block; padding-block: 0.375rem; font-size: var(--t-small); }
-  .book { color: var(--bougainvillea); }
-  .book:hover { color: var(--bougainvillea); text-decoration-thickness: 2px; }
-  .copy { padding: 0.15em 0.5em; background: transparent; color: var(--haze); border: 1px solid var(--line); border-radius: var(--radius); font: inherit; cursor: pointer; }
-  .copy:hover { color: var(--stucco); border-color: var(--haze); }
-  .copy-note { flex-basis: 100%; color: var(--stucco); }
+  .book { color: var(--blue); }
+  .book:hover { color: var(--blue); text-decoration-thickness: 2px; }
+  .copy { padding: 0.15em 0.5em; background: transparent; color: var(--grey); border: 1px solid var(--line); border-radius: var(--radius); font: inherit; cursor: pointer; }
+  .copy:hover { color: var(--ink); border-color: var(--grey); }
+  .copy-note { flex-basis: 100%; color: var(--ink); }
   .copy-note:empty { display: none; }
   .footer { padding: 3rem var(--margin) var(--margin); font-size: var(--t-small); color: var(--dusk); }
   .footer-inner { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; }
@@ -229,27 +215,17 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <div class="panel brand-panel">
-      <!-- Drop in: brand/oblique-wordmark.svg, inline SVG in Stucco, keeping the visually hidden "Oblique" as its name. -->
-      <a class="wordmark" href="#main"><span class="ph" data-todo="Oblique wordmark (task 1.1)">[Wordmark]</span><span class="vh"> Oblique, back to top</span></a>
-      <details class="menu">
-        <summary><span class="vh">Menu. Current section: </span><span class="label menu-current" id="menu-current">Home</span><span class="label menu-word" aria-hidden="true">Menu</span><span class="chev" aria-hidden="true"></span></summary>
-        <nav class="menu-panel" aria-label="Sections">
-          <ul>
-            <li><a href="#work"><span class="t">Work</span><span class="s">Selected projects</span></a></li>
-            <li><a href="#practices"><span class="t">Practices</span><span class="s">Digital, content, experiential</span></a></li>
-            <li><a href="#contact"><span class="t">Contact</span><span class="s">Start a project</span></a></li>
-          </ul>
-          <div class="menu-channels">
-            <h2 class="label">Channels</h2>
-            <ul>
-              <li><a class="label" href="#" data-todo="LinkedIn URL (task 3.1)"><span class="ph">[LinkedIn]</span></a></li>
-              <li><a class="label" href="#" data-todo="Instagram URL (task 3.1)"><span class="ph">[Instagram]</span></a></li>
-            </ul>
-          </div>
-        </nav>
-      </details>
-    </div>
+    <!-- Drop in: brand/oblique-wordmark.svg, inline SVG in Stucco, keeping the visually hidden "Oblique" as its name. -->
+    <a class="panel wordmark" href="#main"><span class="ph" data-todo="Oblique wordmark (task 1.1)">[Wordmark]</span><span class="vh"> Oblique, back to top</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <ul>
+        <li><a href="#home" aria-current="true">Home</a></li>
+        <li><a href="#partnerships">Partnerships</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#irl">IRL</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
     <p class="panel clock-panel label"><span class="vh">Time in Los Angeles: </span><time id="clock"></time></p>
   </div>
 </header>
@@ -259,134 +235,140 @@
   <!-- 1. Hero -->
   <section class="hero" id="home" aria-labelledby="hero-title">
     <!-- Drop in: media/lead.mp4, full-screen loop (muted, loop, playsinline, poster media/lead.jpg, a visible pause button, paused under prefers-reduced-motion). Pick footage with a calm, dark lower left so both lines stay readable over it. -->
-    <div class="slot slot-hero" role="img" aria-label="[Client name] work, [what the loop shows]"><span>[Lead video: full screen, silent loop]</span></div>
+    <div class="slot slot-hero" role="img" aria-label="[Partner name], [what the loop shows]"><span>[Lead video: full screen, silent loop]</span></div>
     <div class="wrap hero-text">
       <h1 id="hero-title"><span>Oblique is a Los Angeles design studio</span> <span class="grey">for digital, content and experiential work.</span></h1>
     </div>
   </section>
 
-  <!-- 2. Intro statement: white, then grey. Client names are folded in here. -->
+  <!-- 2. Intro statement: white, then grey. Partner names are folded in here. -->
   <section class="wrap intro" aria-label="About Oblique">
-    <p class="big">Oblique makes sites, video and brand events for consumer brands and the agencies they hire. <span class="grey">Independent. Los Angeles. Founder-led. Clients include <span class="ph" data-todo="client name, with permission">[Client name]</span>, <span class="ph" data-todo="client name, with permission">[Client name]</span> and <span class="ph" data-todo="client name, with permission">[Client name]</span>.</span></p>
+    <p class="big">Oblique makes sites, video and brand events for consumer brands and the agencies they hire. <span class="grey">Independent. Los Angeles. Founder-led. Partnerships with <span class="ph" data-todo="partner name, with permission">[Partner name]</span>, <span class="ph" data-todo="partner name, with permission">[Partner name]</span> and <span class="ph" data-todo="partner name, with permission">[Partner name]</span>.</span></p>
   </section>
 
-  <!-- 3. Selected work: three to five projects. Copy one <article class="project"> to add more, and update its ids. -->
-  <section class="wrap work" id="work" aria-labelledby="work-title">
-    <div class="work-grid">
-      <div class="work-aside">
-        <div class="work-aside-inner">
-          <hgroup class="work-head big">
-            <h2 id="work-title">Selected work</h2>
-            <p class="current grey" aria-hidden="true"></p>
-          </hgroup>
-          <div class="current-detail" aria-hidden="true"></div>
-        </div>
-      </div>
-
-      <div class="work-list">
-        <article class="project" id="project-1" aria-labelledby="project-1-name">
-          <div class="project-media">
-            <!-- Drop in: media/project-1.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-1.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
-            <div class="slot slot-video" role="img" aria-label="[Client one] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
-          </div>
-          <div class="project-text">
-            <h3 class="project-name" id="project-1-name"><span class="ph" data-todo="client name, with permission">[Client one]</span></h3>
-            <p class="project-title"><span class="ph" data-todo="project title, a short phrase">[Project title]</span></p>
-            <p class="project-desc"><span class="ph" data-todo="a few sentences on the brief and what Oblique made">[A few sentences on the brief and what Oblique made]</span></p>
-            <p class="project-credit"><span class="ph" data-todo="credit line, or delete if Oblique made it">[Credit line, if made at another studio]</span></p>
-            <div class="card">
-              <!-- Drop in: media/project-1-logo.png, square, alt="" (the client name sits beside it). -->
-              <div class="slot slot-thumb" role="img" aria-label="[Logo thumbnail]"><span>[Logo]</span></div>
-              <div>
-                <p class="card-title"><span class="ph" data-todo="project title, a short phrase">[Project title]</span></p>
-                <p class="card-meta label"><span class="ph" data-todo="year">[Year]</span>, <span class="ph" data-todo="Screen, Space or Event">[Screen, Space or Event]</span></p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project" id="project-2" aria-labelledby="project-2-name">
-          <div class="project-media">
-            <!-- Drop in: media/project-2.mp4, 16:9 promo video. -->
-            <div class="slot slot-video" role="img" aria-label="[Client two] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
-          </div>
-          <div class="project-text">
-            <h3 class="project-name" id="project-2-name"><span class="ph" data-todo="client name, with permission">[Client two]</span></h3>
-            <p class="project-title"><span class="ph" data-todo="project title, a short phrase">[Project title]</span></p>
-            <p class="project-desc"><span class="ph" data-todo="a few sentences on the brief and what Oblique made">[A few sentences on the brief and what Oblique made]</span></p>
-            <p class="project-credit"><span class="ph" data-todo="credit line, or delete if Oblique made it">[Credit line, if made at another studio]</span></p>
-            <div class="card">
-              <!-- Drop in: media/project-2-logo.png, square, alt="". -->
-              <div class="slot slot-thumb" role="img" aria-label="[Logo thumbnail]"><span>[Logo]</span></div>
-              <div>
-                <p class="card-title"><span class="ph" data-todo="project title, a short phrase">[Project title]</span></p>
-                <p class="card-meta label"><span class="ph" data-todo="year">[Year]</span>, <span class="ph" data-todo="Screen, Space or Event">[Screen, Space or Event]</span></p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="project" id="project-3" aria-labelledby="project-3-name">
-          <div class="project-media">
-            <!-- Drop in: media/project-3.mp4, 16:9 promo video. -->
-            <div class="slot slot-video" role="img" aria-label="[Client three] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
-          </div>
-          <div class="project-text">
-            <h3 class="project-name" id="project-3-name"><span class="ph" data-todo="client name, with permission">[Client three]</span></h3>
-            <p class="project-title"><span class="ph" data-todo="project title, a short phrase">[Project title]</span></p>
-            <p class="project-desc"><span class="ph" data-todo="a few sentences on the brief and what Oblique made">[A few sentences on the brief and what Oblique made]</span></p>
-            <p class="project-credit"><span class="ph" data-todo="credit line, or delete if Oblique made it">[Credit line, if made at another studio]</span></p>
-            <div class="card">
-              <!-- Drop in: media/project-3-logo.png, square, alt="". -->
-              <div class="slot slot-thumb" role="img" aria-label="[Logo thumbnail]"><span>[Logo]</span></div>
-              <div>
-                <p class="card-title"><span class="ph" data-todo="project title, a short phrase">[Project title]</span></p>
-                <p class="card-meta label"><span class="ph" data-todo="year">[Year]</span>, <span class="ph" data-todo="Screen, Space or Event">[Screen, Space or Event]</span></p>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <a class="more" href="#contact"><span class="label">Start a project</span></a>
-      </div>
+  <!-- 3. Partnerships: every client and case study is a partnership. Three to five. Copy one <article class="partner"> to add more, and update its ids. -->
+  <section class="wrap work" id="partnerships" aria-labelledby="work-title">
+    <div class="work-head">
+      <h2 class="label" id="work-title">Partnerships</h2>
     </div>
+
+    <article class="partner" id="project-1" aria-labelledby="project-1-name">
+      <div class="partner-top">
+        <h3 class="partner-name" id="project-1-name"><span class="ph" data-todo="partner name, with permission">[Partner one]</span></h3>
+        <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner one]</span></a>
+      </div>
+      <div class="partner-media">
+        <!-- Drop in: media/project-1.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-1.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
+        <div class="slot slot-video" role="img" aria-label="[Partner one] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
+      </div>
+      <p class="partner-line big"><span class="ph" data-todo="one sentence on what the partnership achieved">[One sentence on what the partnership achieved]</span></p>
+      <div class="partner-stat">
+        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
+        <p class="stat-label"><span class="ph" data-todo="what the figure measures">[What the figure measures]</span></p>
+      </div>
+    </article>
+
+    <article class="partner" id="project-2" aria-labelledby="project-2-name">
+      <div class="partner-top">
+        <h3 class="partner-name" id="project-2-name"><span class="ph" data-todo="partner name, with permission">[Partner two]</span></h3>
+        <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner two]</span></a>
+      </div>
+      <div class="partner-media">
+        <!-- Drop in: media/project-2.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-2.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
+        <div class="slot slot-video" role="img" aria-label="[Partner two] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
+      </div>
+      <p class="partner-line big"><span class="ph" data-todo="one sentence on what the partnership achieved">[One sentence on what the partnership achieved]</span></p>
+      <div class="partner-stat">
+        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
+        <p class="stat-label"><span class="ph" data-todo="what the figure measures">[What the figure measures]</span></p>
+      </div>
+    </article>
+
+    <article class="partner" id="project-3" aria-labelledby="project-3-name">
+      <div class="partner-top">
+        <h3 class="partner-name" id="project-3-name"><span class="ph" data-todo="partner name, with permission">[Partner three]</span></h3>
+        <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner three]</span></a>
+      </div>
+      <div class="partner-media">
+        <!-- Drop in: media/project-3.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-3.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
+        <div class="slot slot-video" role="img" aria-label="[Partner three] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
+      </div>
+      <p class="partner-line big"><span class="ph" data-todo="one sentence on what the partnership achieved">[One sentence on what the partnership achieved]</span></p>
+      <div class="partner-stat">
+        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
+        <p class="stat-label"><span class="ph" data-todo="what the figure measures">[What the figure measures]</span></p>
+      </div>
+    </article>
+
+    <a class="more" href="#contact"><span class="label">Start a project</span></a>
   </section>
 
-  <!-- 4. Practices: Koto's news grid, one card per practice. -->
-  <section class="wrap practices" id="practices" aria-labelledby="practices-title">
+  <!-- 4. Approach: Koto's news grid, one card per practice. -->
+  <section class="wrap practices" id="approach" aria-labelledby="practices-title">
     <div class="practices-head">
-      <h2 class="label" id="practices-title">Practices</h2>
+      <h2 class="label" id="practices-title">Approach</h2>
       <p class="label">Digital, content and experiential</p>
     </div>
     <div class="cards">
       <article class="practice practice-lead" aria-labelledby="practice-digital">
         <!-- Drop in: media/practice-digital.jpg, 16:9, a still from the digital example project. -->
-        <div class="slot slot-card" role="img" aria-label="[Client one] site, [what it shows]"><span>[Digital example: still, 16:9]</span></div>
+        <div class="slot slot-card" role="img" aria-label="[Partner one] site, [what it shows]"><span>[Digital example: still, 16:9]</span></div>
         <h3 id="practice-digital">Digital</h3>
         <p>Oblique designs and builds sites and interfaces. A landing page or a WordPress build fits in a one-week sprint.</p>
         <p class="services">Landing pages, WordPress builds, user experience, interface design.</p>
-        <p class="chip-row"><span class="chip label">Example</span><a href="#project-1" data-todo="point to the digital project in Selected work"><span class="ph">[Client one]</span></a></p>
+        <p class="chip-row"><span class="chip label">Example</span><a href="#project-1" data-todo="point to the digital partnership"><span class="ph">[Partner one]</span></a></p>
       </article>
       <article class="practice" aria-labelledby="practice-content">
         <!-- Drop in: media/practice-content.jpg, 16:9. -->
-        <div class="slot slot-card" role="img" aria-label="[Client two] content, [what it shows]"><span>[Content example: still, 16:9]</span></div>
+        <div class="slot slot-card" role="img" aria-label="[Partner two] content, [what it shows]"><span>[Content example: still, 16:9]</span></div>
         <h3 id="practice-content">Content</h3>
         <p>Content work runs on the monthly plan.</p>
         <p class="services">Motion graphics, video production, editing, social assets.</p>
-        <p class="chip-row"><span class="chip label">Example</span><a href="#project-2" data-todo="point to the content project in Selected work"><span class="ph">[Client two]</span></a></p>
+        <p class="chip-row"><span class="chip label">Example</span><a href="#project-2" data-todo="point to the content partnership"><span class="ph">[Partner two]</span></a></p>
       </article>
       <article class="practice" aria-labelledby="practice-experiential">
         <!-- Drop in: media/practice-experiential.jpg, 16:9. -->
-        <div class="slot slot-card" role="img" aria-label="[Client three] event, [what it shows]"><span>[Experiential example: still, 16:9]</span></div>
+        <div class="slot slot-card" role="img" aria-label="[Partner three] event, [what it shows]"><span>[Experiential example: still, 16:9]</span></div>
         <h3 id="practice-experiential">Experiential</h3>
         <p>Oblique designs the space and plans the event around it.</p>
         <p class="services">Brand activations and events, pop-ups, interactive installations and booths, exhibition design. Event production covers venue scouting, vendor sourcing, permitting, renderings and floorplans, and fabrication management.</p>
-        <p class="chip-row"><span class="chip label">Example</span><a href="#project-3" data-todo="point to the experiential project in Selected work"><span class="ph">[Client three]</span></a></p>
+        <p class="chip-row"><span class="chip label">Example</span><a href="#project-3" data-todo="point to the experiential partnership"><span class="ph">[Partner three]</span></a></p>
       </article>
     </div>
   </section>
 
-  <!-- 5. Contact. How we work and the studio bio are folded in as rows. -->
+  <!-- 5. IRL: events, pop-ups and installations. Copy one <article> to add more, and update its ids. -->
+  <section class="wrap practices irl" id="irl" aria-labelledby="irl-title">
+    <div class="practices-head">
+      <h2 class="label" id="irl-title">IRL</h2>
+      <p class="label">Events, pop-ups and installations</p>
+    </div>
+    <div class="cards irl-cards">
+      <article class="practice" aria-labelledby="irl-1">
+        <!-- Drop in: media/irl-1.jpg, 4:3, a photo from the day. -->
+        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 4:3]</span></div>
+        <h3 id="irl-1"><span class="ph" data-todo="event name">[Event name]</span></h3>
+        <p class="label services"><span class="ph" data-todo="month and year">[Month Year]</span>, <span class="ph" data-todo="city">[City]</span></p>
+        <p><span class="ph" data-todo="one sentence on what happened">[One sentence on what happened]</span></p>
+      </article>
+      <article class="practice" aria-labelledby="irl-2">
+        <!-- Drop in: media/irl-2.jpg, 4:3, a photo from the day. -->
+        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 4:3]</span></div>
+        <h3 id="irl-2"><span class="ph" data-todo="event name">[Event name]</span></h3>
+        <p class="label services"><span class="ph" data-todo="month and year">[Month Year]</span>, <span class="ph" data-todo="city">[City]</span></p>
+        <p><span class="ph" data-todo="one sentence on what happened">[One sentence on what happened]</span></p>
+      </article>
+      <article class="practice" aria-labelledby="irl-3">
+        <!-- Drop in: media/irl-3.jpg, 4:3, a photo from the day. -->
+        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 4:3]</span></div>
+        <h3 id="irl-3"><span class="ph" data-todo="event name">[Event name]</span></h3>
+        <p class="label services"><span class="ph" data-todo="month and year">[Month Year]</span>, <span class="ph" data-todo="city">[City]</span></p>
+        <p><span class="ph" data-todo="one sentence on what happened">[One sentence on what happened]</span></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 6. Contact. How we work and the studio bio are folded in as rows. -->
   <section class="wrap contact" id="contact" aria-labelledby="contact-title">
     <div class="contact-grid">
       <div class="contact-left">
@@ -466,69 +448,22 @@
     } catch (e) { clock.parentNode.hidden = true; }
   }
 
-  /* Menu: close on Escape, on an outside click, and after choosing a section. */
-  var menu = document.querySelector('.menu');
-  if (menu) {
-    var summary = menu.querySelector('summary');
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && menu.open) { menu.open = false; summary.focus(); }
-    });
-    document.addEventListener('click', function (e) {
-      if (menu.open && !menu.contains(e.target)) menu.open = false;
-    });
-    menu.querySelectorAll('.menu-panel a').forEach(function (a) {
-      a.addEventListener('click', function () { menu.open = false; });
-    });
-  }
-
-  /* Current section name in the menu button, as Koto shows the page name. */
-  var current = document.getElementById('menu-current');
-  var names = { home: 'Home', work: 'Work', practices: 'Practices', contact: 'Contact' };
-  if (current && observe) {
-    var sio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) current.textContent = names[entry.target.id];
+  /* Tabs: fill the pill for the section in the middle of the screen. */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
+  if (tabs.length && observe) {
+    var setTab = function (id) {
+      tabs.forEach(function (a) {
+        if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
       });
+    };
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) setTab(entry.target.id); });
     }, { rootMargin: '-50% 0px -49% 0px' });
-    Object.keys(names).forEach(function (id) {
-      var el = document.getElementById(id);
+    tabs.forEach(function (a) {
+      var el = document.getElementById(a.getAttribute('href').slice(1));
       if (el) sio.observe(el);
     });
-  }
-
-  /* Selected work: the left column shows the project in the middle of the screen. */
-  var work = document.getElementById('work');
-  var nameEl = work && work.querySelector('.work-head .current');
-  var detail = work && work.querySelector('.current-detail');
-  var projects = work ? Array.prototype.slice.call(work.querySelectorAll('.project')) : [];
-  if (nameEl && detail && projects.length && observe) {
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var active = null, timer = null;
-    var render = function (project) {
-      nameEl.innerHTML = project.querySelector('.project-name').innerHTML;
-      var frag = document.createDocumentFragment();
-      ['.project-desc', '.project-credit', '.card'].forEach(function (sel) {
-        var node = project.querySelector(sel).cloneNode(true);
-        node.querySelectorAll('[id]').forEach(function (n) { n.removeAttribute('id'); });
-        frag.appendChild(node);
-      });
-      detail.replaceChildren(frag);
-    };
-    var show = function (project) {
-      if (project === active) return;
-      active = project;
-      projects.forEach(function (p) { p.classList.toggle('is-active', p === project); });
-      if (reduce.matches || !detail.firstChild) { render(project); return; }
-      detail.classList.add('is-fading');
-      clearTimeout(timer);
-      timer = setTimeout(function () { render(active); detail.classList.remove('is-fading'); }, 160);
-    };
-    show(projects[0]);
-    work.classList.add('work-live');
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) { if (entry.isIntersecting) show(entry.target); });
-    }, { rootMargin: '-45% 0px -54% 0px' });
-    projects.forEach(function (p) { io.observe(p); });
   }
 
   /* Copy the email address. */
