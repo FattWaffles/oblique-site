@@ -13,6 +13,14 @@
 <!-- Sofia Sans (OFL): condensed light for large type, regular for body. Azeret Mono (OFL): small labels and the clock. -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400&family=Sofia+Sans+Condensed:wght@300&family=Azeret+Mono:wght@400&display=swap">
 <style>
+  /* Oblique Trace (brand/fonts/): the studio's own face, used for hero display type. Regular has no comma, so the hero sets Thin. */
+  @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-UltraThin.otf") format("opentype"); font-weight: 100; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-Thin.otf") format("opentype"); font-weight: 200; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-Medium.otf") format("opentype"); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-Bold.otf") format("opentype"); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-Heavy.otf") format("opentype"); font-weight: 900; font-style: normal; font-display: swap; }
+
   /* Layout follows koto.com's homepage, section for section (see koto-reference.md).
      Type, color, copy and media are Oblique's own. Tokens: see design-plan.md. */
   :root {
@@ -30,6 +38,7 @@
     --font-sans: "Sofia Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --font-cond: "Sofia Sans Condensed", "Sofia Sans", "Arial Narrow", sans-serif;
     --font-mono: "Azeret Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-display: "Oblique Trace", "Sofia Sans Condensed", "Arial Narrow", sans-serif;
 
     --t-label: 0.6875rem;
     --t-small: 0.875rem;
@@ -85,7 +94,9 @@
   .topbar { position: fixed; inset: 0 0 auto 0; z-index: 20; pointer-events: none; }
   .topbar-inner { display: flex; align-items: flex-start; gap: var(--gap); padding: var(--margin); }
   .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--frost); border-radius: var(--radius); }
-  .wordmark { padding: 0 0.875rem; color: var(--ink); text-decoration: none; }
+  /* The loop is a 1080 square with the box in a band at x 20 to 86 percent, y 40 to 64 percent. The panel crops to that band; multiply drops the white frame onto the frost panel. */
+  .wordmark { position: relative; width: 6.5rem; height: 2.75rem; padding: 0; overflow: hidden; color: var(--ink); text-decoration: none; }
+  .logo-loop { position: absolute; width: 7.14rem; height: 7.14rem; left: calc(50% - 3.78rem); top: calc(50% - 3.7rem); mix-blend-mode: multiply; }
   .tabs { pointer-events: auto; min-width: 0; }
   .tabs ul { display: flex; gap: 0.375rem; }
   .tabs a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 1.125rem; background: var(--line); border-radius: 999px; color: var(--ink); font-size: 1.0625rem; text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
@@ -111,7 +122,7 @@
   .hero { position: relative; height: 100vh; height: 100svh; min-height: 30rem; }
   .slot-hero { position: absolute; inset: 0; height: 100%; border-radius: 0; border: 0; border-bottom: 1px dashed var(--line); align-items: flex-start; justify-content: flex-end; padding: 5rem var(--margin) 0; }
   .hero-text { position: absolute; left: 0; right: 0; bottom: 0; padding-bottom: 2.5rem; pointer-events: none; }
-  .hero h1 { font-family: var(--font-cond); font-weight: 300; font-size: var(--t-hero); line-height: 1.05; letter-spacing: -0.01em; color: var(--ink); max-width: 17em; }
+  .hero h1 { font-family: var(--font-display); font-weight: 200; font-size: var(--t-hero); line-height: 1.05; letter-spacing: -0.01em; color: var(--ink); max-width: 21em; }
   .hero h1 span { display: block; }
 
   /* 2. Intro statement: Koto. One large paragraph, white then grey. */
@@ -215,8 +226,8 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <!-- Drop in: brand/oblique-wordmark.svg, inline SVG in Stucco, keeping the visually hidden "Oblique" as its name. -->
-    <a class="panel wordmark" href="#main"><span class="ph" data-todo="Oblique wordmark (task 1.1)">[Wordmark]</span><span class="vh"> Oblique, back to top</span></a>
+    <!-- Logo v1 loop (brand/oblique-logo-kit/logo-v1/). Silent, loops, paused under prefers-reduced-motion; the PNG poster is the still. -->
+    <a class="panel wordmark" href="#main"><video class="logo-loop" src="media/oblique-logo-v1-loop.mp4" poster="media/oblique-logo-v1.png" autoplay muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1"></video><span class="vh">Oblique, back to top</span></a>
     <nav class="tabs" aria-label="Sections">
       <ul>
         <li><a href="#home" aria-current="true">Home</a></li>
@@ -423,6 +434,11 @@
 </footer>
 
 <script>
+  (function () {
+    var v = document.querySelector('.logo-loop');
+    if (v && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+  })();
+
 (function () {
   'use strict';
   var observe = 'IntersectionObserver' in window;
