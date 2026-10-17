@@ -1,0 +1,5 @@
+# Publish only the public page. Planning notes in this folder stay local.
+/*
+!/index.html
+!/CNAME
+!/.gitignore
