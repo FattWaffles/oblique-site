@@ -218,6 +218,23 @@
     .footer-inner { margin-left: calc(44% + 0.5rem); }
   }
 
+  /* Past-client strip: one-colour masks from media/clients/ (sources in brand/client-logos/README.md),
+     painted with the current text colour, the row drawn twice so the drift loops without a seam. */
+  .clients { margin-top: 0; margin-bottom: 2rem; margin-left: calc(-1 * var(--margin)); margin-right: calc(-1 * var(--margin)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; color: var(--dusk);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .clients:hover, .clients:focus-within { color: var(--ink); }
+  .clients-track { display: flex; align-items: center; width: max-content; padding: 1.75rem 0; animation: clients-drift 70s linear infinite; }
+  .clients:hover .clients-track, .clients:focus-within .clients-track { animation-play-state: paused; }
+  .client { flex: none; height: 14px; width: calc(14px * var(--ar, 4)); max-width: 120px; margin-right: 3rem; background: currentColor;
+    -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
+  @keyframes clients-drift { to { transform: translateX(-50%); } }
+  @media (max-width: 640px) { .client { height: 12px; width: calc(12px * var(--ar, 4)); max-width: 96px; margin-right: 2rem; } }
+  @media (prefers-reduced-motion: reduce) {
+    .clients { -webkit-mask-image: none; mask-image: none; }
+    .clients-track { width: auto; flex-wrap: wrap; justify-content: center; gap: 1rem 0; padding: 1.5rem var(--margin); }
+    .client { margin: 0 1rem; }
+    .client[aria-hidden="true"] { display: none; }
+  }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition: none !important; animation: none !important; }
   }
@@ -430,6 +447,46 @@
 </main>
 
 <footer class="footer">
+  <div class="clients" aria-label="Past clients">
+    <div class="clients-track">
+      <span class="client" role="img" aria-label="Estée Lauder" style="--ar:1.99;--m:url(media/clients/estee-lauder.svg)"></span>
+      <span class="client" role="img" aria-label="Clinique" style="--ar:3.56;--m:url(media/clients/clinique.svg)"></span>
+      <span class="client" role="img" aria-label="Neutrogena" style="--ar:4.81;--m:url(media/clients/neutrogena.svg)"></span>
+      <span class="client" role="img" aria-label="Kenvue" style="--ar:4.32;--m:url(media/clients/kenvue.svg)"></span>
+      <span class="client" role="img" aria-label="Bath &amp; Body Works" style="--ar:10.3;--m:url(media/clients/bath-body-works.svg)"></span>
+      <span class="client" role="img" aria-label="L'Oréal USA" style="--ar:3.8;--m:url(media/clients/loreal-groupe.svg)"></span>
+      <span class="client" role="img" aria-label="SalonCentric" style="--ar:5.94;--m:url(media/clients/saloncentric.png)"></span>
+      <span class="client" role="img" aria-label="Conversant" style="--ar:5.29;--m:url(media/clients/conversant.png)"></span>
+      <span class="client" role="img" aria-label="AdParlor" style="--ar:4.6;--m:url(media/clients/adparlor.svg)"></span>
+      <span class="client" role="img" aria-label="It's a 10 Haircare" style="--ar:2.64;--m:url(media/clients/its-a-10.svg)"></span>
+      <span class="client" role="img" aria-label="Ascent Protein" style="--ar:4.0;--m:url(media/clients/ascent-protein.png)"></span>
+      <span class="client" role="img" aria-label="Dr Brew Kombucha" style="--ar:3.67;--m:url(media/clients/brew-dr.png)"></span>
+      <span class="client" role="img" aria-label="FreshDirect" style="--ar:5.0;--m:url(media/clients/freshdirect.svg)"></span>
+      <span class="client" role="img" aria-label="FoodKick" style="--ar:4.21;--m:url(media/clients/foodkick.svg)"></span>
+      <span class="client" role="img" aria-label="Selig Group" style="--ar:2.14;--m:url(media/clients/selig-group.png)"></span>
+      <span class="client" role="img" aria-label="Sapphire Studios" style="--ar:3.39;--m:url(media/clients/sapphire-studios.png)"></span>
+      <span class="client" role="img" aria-label="Profitmind" style="--ar:5.78;--m:url(media/clients/profitmind.svg)"></span>
+      <span class="client" role="img" aria-label="Cengage" style="--ar:4.49;--m:url(media/clients/cengage.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:1.99;--m:url(media/clients/estee-lauder.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:3.56;--m:url(media/clients/clinique.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:4.81;--m:url(media/clients/neutrogena.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:4.32;--m:url(media/clients/kenvue.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:10.3;--m:url(media/clients/bath-body-works.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:3.8;--m:url(media/clients/loreal-groupe.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:5.94;--m:url(media/clients/saloncentric.png)"></span>
+      <span class="client" aria-hidden="true" style="--ar:5.29;--m:url(media/clients/conversant.png)"></span>
+      <span class="client" aria-hidden="true" style="--ar:4.6;--m:url(media/clients/adparlor.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:2.64;--m:url(media/clients/its-a-10.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:4.0;--m:url(media/clients/ascent-protein.png)"></span>
+      <span class="client" aria-hidden="true" style="--ar:3.67;--m:url(media/clients/brew-dr.png)"></span>
+      <span class="client" aria-hidden="true" style="--ar:5.0;--m:url(media/clients/freshdirect.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:4.21;--m:url(media/clients/foodkick.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:2.14;--m:url(media/clients/selig-group.png)"></span>
+      <span class="client" aria-hidden="true" style="--ar:3.39;--m:url(media/clients/sapphire-studios.png)"></span>
+      <span class="client" aria-hidden="true" style="--ar:5.78;--m:url(media/clients/profitmind.svg)"></span>
+      <span class="client" aria-hidden="true" style="--ar:4.49;--m:url(media/clients/cengage.svg)"></span>
+    </div>
+  </div>
   <div class="footer-inner">
     <p>© <span class="ph" data-todo="copyright holder: Oblique or the legal entity that owns it">[copyright holder]</span></p>
   </div>
