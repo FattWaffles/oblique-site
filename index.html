@@ -94,9 +94,11 @@
   .topbar { position: fixed; inset: 0 0 auto 0; z-index: 20; pointer-events: none; }
   .topbar-inner { display: flex; align-items: flex-start; gap: var(--gap); padding: var(--margin); }
   .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--frost); border-radius: var(--radius); }
-  /* The loop is a 1080 square with the box in a band at x 20 to 86 percent, y 40 to 64 percent. The panel crops to that band; multiply drops the white frame onto the frost panel. */
-  .wordmark { position: relative; width: 6.5rem; height: 2.75rem; padding: 0; overflow: hidden; color: var(--ink); text-decoration: none; }
-  .logo-loop { position: absolute; width: 7.14rem; height: 7.14rem; left: calc(50% - 3.78rem); top: calc(50% - 3.7rem); mix-blend-mode: multiply; }
+  /* The loop is a square with the box in a band at x 20 to 86 percent, y 40 to 64 percent. The panel crops to that band.
+     The loop and its poster are transparent, so the panel has no fill and the page white shows through. */
+  /* --logo scales the whole mark: panel, loop and offsets together (1.6, Josie 2026-10-17: "needs to be bigger"). */
+  .wordmark { --logo: 1.6; position: relative; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; overflow: hidden; background: transparent; color: var(--ink); text-decoration: none; }
+  .logo-loop { position: absolute; width: calc(7.14rem * var(--logo)); height: calc(7.14rem * var(--logo)); left: calc(50% - 3.78rem * var(--logo)); top: calc(50% - 3.7rem * var(--logo)); }
   .tabs { pointer-events: auto; min-width: 0; }
   .tabs ul { display: flex; gap: 0.375rem; }
   .tabs a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 1.125rem; background: var(--line); border-radius: 999px; color: var(--ink); font-size: 1.0625rem; text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
@@ -104,8 +106,8 @@
   .tabs a[aria-current="true"] { background: var(--ink); color: var(--white); }
   .tabs a:focus-visible { outline-offset: 2px; border-radius: 999px; }
   /* Section jumps land below the tab row. */
-  main section[id] { scroll-margin-top: 4.5rem; }
-  @media (max-width: 719px) { main section[id] { scroll-margin-top: 7.5rem; } }
+  main section[id] { scroll-margin-top: 6.5rem; }
+  @media (max-width: 719px) { main section[id] { scroll-margin-top: 10rem; } }
   .clock-panel { margin-left: auto; padding: 0 0.875rem; color: var(--ink); }
   .clock-panel time { font-variant-numeric: tabular-nums; }
   @media (max-width: 719px) {
@@ -226,8 +228,8 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <!-- Logo v1 loop (brand/oblique-logo-kit/logo-v1/). Silent, loops, paused under prefers-reduced-motion; the PNG poster is the still. -->
-    <a class="panel wordmark" href="#main"><video class="logo-loop" src="media/oblique-logo-v1-loop.mp4" poster="media/oblique-logo-v1.png" autoplay muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1"></video><span class="vh">Oblique, back to top</span></a>
+    <!-- Logo v1 loop (brand/oblique-logo-kit/logo-v1/) on transparent: HEVC with alpha for Safari, VP9 WebM with alpha for Chrome, Edge and Firefox. Silent, loops, paused under prefers-reduced-motion; the transparent PNG poster is the still. -->
+    <a class="panel wordmark" href="#main"><video class="logo-loop" poster="media/oblique-logo-v1-poster.png" autoplay muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1"><source src="media/oblique-logo-v1-loop.mov" type='video/quicktime; codecs="hvc1"'><source src="media/oblique-logo-v1-loop.webm" type="video/webm"></video><span class="vh">Oblique, back to top</span></a>
     <nav class="tabs" aria-label="Sections">
       <ul>
         <li><a href="#home" aria-current="true">Home</a></li>
