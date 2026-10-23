@@ -130,13 +130,16 @@
   .topbar-inner { display: flex; align-items: flex-start; gap: var(--space-13); padding: var(--space-21) var(--margin); }
   /* Pill and clock height 44: the touch target minimum, a departure the Golden notes log. */
   .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--frost); border-radius: var(--radius); }
-  /* The loop is a square with the box in a band at x 20 to 86 percent, y 39 to 64 percent, the same in every frame of the loop. The panel crops to that band.
-     The loop and its poster are transparent, so the panel has no fill and the page white shows through. */
-  /* --logo scales the whole mark: panel, loop and offsets together (1.6, Josie 2026-10-17: "needs to be bigger"). The panel keeps its drawn size, 166.4 x 70.4 (a departure the Golden notes log);
-     the loop is drawn 248 square so the box fills the panel, as in both frames (2026-10-23). */
-  .wordmark { --logo: 1.6; position: relative; flex: none; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; overflow: hidden; background: transparent; color: var(--ink); text-decoration: none; }
-  .logo-loop { position: absolute; width: calc(9.6875rem * var(--logo)); height: calc(9.6875rem * var(--logo)); left: calc(-1.875rem * var(--logo)); top: calc(-3.515625rem * var(--logo)); }
-  .tabs { pointer-events: auto; min-width: 0; align-self: flex-end; }
+  /* The logo is the shape-shift block from logo-shapeshift.js (row A, Josie 2026-10-22), in place of the turning loop since 2026-10-23. --logo scales the panel
+     (1.6, Josie 2026-10-17: "needs to be bigger"). The panel keeps its drawn size, 166.4 x 70.4 (a departure the Golden notes log), and has no fill. */
+  .wordmark { --logo: 1.6; position: relative; flex: none; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; background: transparent; color: var(--ink); text-decoration: none; }
+  /* Without scripts, or with reduced motion, the block rests in the panel as the wide shape, the panel's full width, as both frames draw the logo
+     (a departure: the smaller loop used 0.724, the spiral's eye). A white silhouette sits behind it, so its letters and lit faces stay white over the hero. */
+  .logo-live { position: absolute; left: 50%; top: 50%; width: calc(6.5rem * var(--logo)); height: auto; transform: translate(-50%, -50%); overflow: visible; }
+  /* With scripts it is fixed, and the script sets its size and place every frame. It passes behind the pill row (z-index 2 below). */
+  .logo-live.is-live { position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none; }
+  .logo-js .logo-live:not(.is-live) { visibility: hidden; }
+  .tabs { position: relative; z-index: 2; pointer-events: auto; min-width: 0; align-self: flex-end; }
   .tabs ul { display: flex; gap: var(--space-5); }
   .tabs a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-21); background: var(--line); border-radius: 999px; color: var(--ink); font-size: var(--t-body); font-weight: 500; line-height: var(--lh-tight); text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
   .tabs a:hover { background: #CDCDC6; }
@@ -172,6 +175,9 @@
   .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--t-hero); line-height: var(--lh-tight); letter-spacing: -0.02em; text-transform: uppercase; color: var(--ink); }
   /* Desktop sets two lines, World building for / brands telling a story; narrower screens wrap each again (five lines on the phone). */
   .hero h1 span { display: block; }
+  /* Where the block starts (2026-10-23): above the headline on its left edge, its foot one margin above the headline's top, front face this wide.
+     514 is the desktop golden column; phones take 0.618 of the screen. It grows up into the open hero, under the top bar. */
+  .hero-logo { position: absolute; left: var(--margin); bottom: 100%; margin-bottom: var(--margin); width: min(514px, 61.8vw); height: 1px; visibility: hidden; pointer-events: none; }
 
   /* 2. Intro statement: Koto. One large paragraph, ink then grey, across the inner width as the frames set it. */
   .intro { padding-top: var(--space-55); }
@@ -306,14 +312,16 @@
     *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 </style>
+<!-- The logo script will move the block: hide the panel copy until its first frame, so it does not flash in the panel first. -->
+<script>if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('logo-js');</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <!-- Logo v2 loop (Oblique V2 Brand Style Guide/logo/loop/) on transparent: HEVC with alpha for Safari, VP9 WebM with alpha for Chrome, Edge and Firefox. Silent, loops, paused under prefers-reduced-motion; the transparent PNG poster is the still. -->
-    <a class="panel wordmark" href="#main"><video class="logo-loop" poster="media/oblique-logo-v2-poster.png" autoplay muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1"><source src="media/oblique-logo-v2-loop.mov" type='video/quicktime; codecs="hvc1"'><source src="media/oblique-logo-v2-loop.webm" type="video/webm"></video><span class="vh">Oblique, back to top</span></a>
+    <!-- Logo v2 shape-shift, row A (Oblique V2 Brand Style Guide/logo/shapeshift/): today's wide shape, drawn by logo-shapeshift.js. The script below moves it between the hero and this panel. -->
+    <a class="panel wordmark" href="#main"><svg class="logo-live" viewBox="216 216 1941.394 564.966" fill="currentColor" aria-hidden="true" focusable="false"><polygon class="logo-back" fill="#FFFFFF" points="342.724,432.793 216,780.966 1732.282,780.966 2030.67,564.173 2157.394,216 641.112,216"/><path fill-rule="evenodd" d="M342.724,432.793L216,780.966L1159.14,780.966L1159.14,730.215C1140.23,734.439 1122.136,734.098 1103.433,728.508C1089.235,724.267 1075.613,717.257 1063.911,707.175C1054.098,698.723 1045.87,688.393 1039.445,676.455C1034.127,666.578 1030.235,655.36 1028.153,644.028C1026.444,634.718 1025.91,625.34 1026.647,615.868C1027.291,607.625 1028.725,599.347 1031.164,591.548C1046.133,543.659 1090.387,515.601 1133.921,515.601L1393.636,515.601L1393.636,629.521C1393.636,632.226 1394.204,635.14 1395.142,637.628C1396.049,640.034 1397.239,642.219 1398.906,644.028C1400.374,645.619 1402.294,646.993 1404.176,647.868C1415.001,652.911 1426.383,642.919 1426.383,629.948L1426.383,515.601L1509.191,515.601L1509.191,629.948C1509.191,642.343 1507.042,654.81 1502.792,666.215C1499.337,675.482 1494.59,684.131 1488.865,691.815C1483.528,698.983 1477.208,705.652 1470.421,711.015C1427.79,744.709 1365.071,737.345 1331.154,691.815C1325.086,683.67 1320.348,674.411 1316.851,664.508C1312.989,653.577 1310.829,641.737 1310.829,629.948L1310.829,598.375L1134.298,598.375C1129.751,598.375 1125.087,599.672 1121.124,602.215C1110.487,609.042 1105.748,623.51 1111.714,635.922C1112.9,638.392 1114.416,640.833 1116.231,642.749C1124.26,651.223 1136.666,652.694 1146.343,647.016C1150.081,644.823 1153.457,641.636 1155.753,637.629C1158.053,633.618 1158.982,629.134 1159.14,624.402L1241.948,624.402L1241.948,780.967L1732.282,780.966L1859.006,432.793L883.421,432.793L883.421,432.793L883.421,729.787L800.613,729.787L800.613,432.793L800.613,432.793L638.575,432.793L638.575,432.793L638.575,515.601C657.756,511.313 675.673,511.241 694.658,516.881C708.897,521.113 722.425,528.572 734.18,538.641C744.015,547.068 752.567,557.436 759.022,569.361C764.356,579.213 768.221,590.041 770.314,601.361C772.03,610.65 772.561,620.066 771.82,629.521C771.176,637.747 769.75,646.063 767.303,653.841C752.236,701.777 708.092,729.788 664.546,729.788L555.767,729.788L555.767,647.015L664.17,647.015C668.777,647.015 673.305,645.709 677.344,643.175C687.872,636.57 692.961,622.281 687.13,609.895C685.899,607.275 684.171,605.065 682.237,603.068C674.043,594.616 661.178,593.178 651.372,598.801C647.6,600.964 644.307,604.19 641.962,608.188C639.64,612.143 638.736,616.713 638.574,621.415L555.766,621.415L555.766,432.794L555.766,432.793ZM521.279,658.534C517.718,669.013 512.844,678.835 506.6,687.547C463.536,747.635 375.143,748.373 331.198,689.254C325.176,681.156 320.204,672.106 316.519,662.374C311.791,649.89 309.367,636.283 309.367,622.694C309.367,609.105 311.791,595.498 316.519,583.014C320.204,573.282 325.176,564.232 331.198,556.134C375.142,497.015 463.536,497.753 506.6,557.841C512.844,566.553 517.719,576.375 521.279,586.854C525.171,598.31 527.302,610.415 527.302,622.694C527.302,634.973 525.171,647.078 521.279,658.534ZM394.056,612.455C392.806,615.723 392.174,619.132 392.174,622.695C392.174,625.929 392.641,629.069 393.68,632.082C401.867,655.877 433.676,656.325 442.612,632.935C443.865,629.65 444.464,626.27 444.494,622.695C444.52,619.631 443.922,616.602 442.988,613.735C435.114,589.552 403.067,588.869 394.056,612.455ZM997.859,729.788L915.051,729.788L915.051,515.601L997.859,515.601L997.859,729.788ZM1745.426,666.641C1741.523,675.272 1736.818,683.277 1731.123,690.534C1702.016,727.616 1654.436,739.989 1612.934,726.374C1576.036,714.269 1545.013,681.672 1538.783,637.627C1537.62,629.414 1537.341,620.735 1538.03,612.454C1538.832,602.841 1540.872,593.68 1544.052,584.721C1547.519,574.967 1552.16,565.598 1557.979,557.414C1599.842,498.534 1685.461,496.443 1730.37,551.867C1736.291,559.176 1741.086,567.334 1745.05,576.187C1749.808,586.811 1753.293,598.463 1754.46,610.32C1755.792,623.862 1754.663,636.901 1751.449,650L1662.243,650L1662.243,666.64L1745.427,666.64ZM1668.264,607.334C1658.297,590.741 1635.291,590.19 1624.978,606.481C1622.772,609.967 1621.515,613.811 1620.838,618.001L1672.028,618.001C1671.366,614.033 1670.285,610.701 1668.264,607.334Z"/><polygon points="641.112,216 342.724,432.793 375.981,432.793 647.464,235.548 793.992,235.548 522.509,432.793 555.766,432.793 854.154,216"/><polygon points="936.963,216 638.575,432.793 671.832,432.793 943.315,235.548 1038.839,235.548 767.356,432.793 800.613,432.793 1099.001,216"/><polygon points="1181.809,216 883.421,432.793 916.678,432.793 1188.161,235.548 2097.232,235.548 1825.749,432.793 1859.006,432.793 2129.113,236.548 2014.345,551.871 1744.238,748.117 1732.282,780.966 2030.67,564.173 2157.394,216"/></svg><span class="vh">Oblique, back to top</span></a>
     <nav class="tabs" aria-label="Sections">
       <ul>
         <li><a href="#home" aria-current="true">Home</a></li>
@@ -334,6 +342,7 @@
     <!-- Drop in: media/lead.mp4, full-screen loop (muted, loop, playsinline, poster media/lead.jpg, a visible pause button, paused under prefers-reduced-motion). Pick footage with a calm, light lower left so the ink headline at the foot stays readable over it. -->
     <div class="slot slot-hero" role="img" aria-label="[Partner name], [what the loop shows]"><span>[Lead video: full screen, silent loop]</span></div>
     <div class="wrap hero-text">
+      <div class="hero-logo" aria-hidden="true"></div>
       <h1 id="hero-title"><span>World building for</span> <span>brands telling a story</span></h1>
     </div>
   </section>
@@ -559,10 +568,151 @@
   </div>
 </footer>
 
+<script src="logo-shapeshift.js"></script>
 <script>
+  /* Logo (Josie, 2026-10-22, after the AI in Design Report 2026 logo): the block from logo-shapeshift.js, row A, word at the bottom.
+     At the top of the page it sits above the headline on its left edge (2026-10-23, since the headline moved to the foot of the hero) and
+     grows once through the golden steps (wide, 2.618, 1.618, square, then rests on 1.618), only as far as the room between the top bar
+     and the headline allows. Scrolling the first 0.618 of the hero carries it into the top bar panel and back to the wide shape; scrolling
+     up reverses it, and it never runs over the headline. With reduced motion, no script, or no room in the hero (short landscape screens)
+     it stays in the panel. */
   (function () {
-    var v = document.querySelector('.logo-loop');
-    if (v && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+    var root = document.documentElement;
+    var logo = document.querySelector('.logo-live');
+    var panel = document.querySelector('.wordmark');
+    var slot = document.querySelector('.hero-logo');
+    var bar = document.querySelector('.topbar-inner');
+    var hero = document.getElementById('home');
+    var title = document.getElementById('hero-title');
+    var L = window.ObliqueLogo;
+    if (!logo || !panel || !slot || !bar || !hero || !title || !L || !window.requestAnimationFrame || !window.matchMedia) {
+      root.classList.remove('logo-js');
+      return;
+    }
+
+    var face = logo.querySelector('path');
+    var back = logo.querySelector('.logo-back');
+    var depth = logo.querySelectorAll('polygon:not(.logo-back)');
+    var S = L.steps;
+    var STEPS = [S.wide, S.phi2, S.phi, S.square, S.phi];
+    var MOVE = 618, HOLD = 382;   /* ms: each step of the opening moves for 0.618 s, then holds for 0.382 s */
+    var NAV = 1;                  /* in the panel the wide shape spans the panel's 6.5rem x --logo width, as in the CSS and both frames */
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var now = function () { return window.performance ? performance.now() : 0; };
+    var on = false, frame = 0, lastH = -1, drawn = '';
+    /* The opening plays once: 'wait' until the first visible frame after the fonts, then 'run', then 'done'. */
+    var opening = 'wait', start = 0, runSeq = null, fontsIn = !(document.fonts && document.fonts.ready);
+
+    var boxW = function (h) { return L.K * h + L.W0 + L.DX; };
+    var boxH = function (h) { return h - L.DY; };
+    var smooth = function (t) { t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); };
+    var inOut = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(2 - 2 * t, 3) / 2; };
+
+    var shape = function (h) {
+      var r = L.build(h);
+      face.setAttribute('d', r.d);
+      for (var i = 0; i < depth.length; i++) depth[i].setAttribute('points', r.depth[i]);
+      if (back) back.setAttribute('points', r.hull);
+      logo.setAttribute('viewBox', r.box.join(' '));
+      return r.box;
+    };
+
+    var draw = function (h, s, x, y) {
+      var key = h.toFixed(2) + ' ' + s.toFixed(5) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1);
+      if (key === drawn) return;
+      drawn = key;
+      if (Math.abs(h - lastH) > 0.005) { shape(h); lastH = h; }
+      var w = boxW(h) * s, tall = boxH(h) * s;
+      logo.style.width = w + 'px';
+      logo.style.height = tall + 'px';
+      logo.style.transform = 'translate3d(' + x + 'px,' + (y - tall) + 'px,0)';
+    };
+
+    /* The opening: the height t ms in, through the steps that fit; -1 once it is over. */
+    var play = function (t, seq) {
+      if (t < HOLD) return seq[0];
+      for (var i = 1; i < seq.length; i++) {
+        var t0 = HOLD + (i - 1) * (MOVE + HOLD);
+        if (t < t0 + MOVE) return seq[i - 1] + (seq[i] - seq[i - 1]) * inOut((t - t0) / MOVE);
+        if (t < t0 + MOVE + HOLD) return seq[i];
+      }
+      return -1;
+    };
+
+    /* time is the frame's timestamp; undefined when called straight from enable(). */
+    var render = function (time) {
+      frame = 0;
+      if (!on) return;
+      var pr = panel.getBoundingClientRect();
+      if (pr.width <= 0) return;
+      var sr = slot.getBoundingClientRect();
+      var tt = title.getBoundingClientRect().top;
+      var margin = parseFloat(getComputedStyle(slot).marginBottom) || 0;
+      var y0 = window.pageYOffset;
+      /* Room above the headline in the open hero: from a margin under the top bar down to the slot's foot, as at the top of the page. */
+      var room = sr.bottom + y0 - bar.getBoundingClientRect().bottom - margin;
+      var navW = 6.5 * (parseFloat(getComputedStyle(root).fontSize) || 16) * (parseFloat(getComputedStyle(panel).getPropertyValue('--logo')) || 1.6) * NAV;
+      var sNav = navW / boxW(S.wide);
+      /* The hero needs the slot on screen at the top of the page and room above the headline for the wide shape at panel size. */
+      var heroOK = sr.bottom + y0 <= window.innerHeight + 0.5 && room >= boxH(S.wide) * sNav;
+      /* The front face as wide as the hero box, smaller where needed so the 2.618 step still fits above the headline. */
+      var sHero = Math.max(sNav, Math.min(sr.width / L.W0, room / boxH(S.phi2)));
+      /* Steps that fit: between the top bar and the headline, and inside the right margin. */
+      var seq = [];
+      STEPS.forEach(function (h) {
+        if (boxH(h) * sHero <= room + 0.5 && sr.left + boxW(h) * sHero <= root.clientWidth - margin + 0.5 && seq[seq.length - 1] !== h) seq.push(h);
+      });
+      if (!seq.length) seq.push(S.wide);
+      var hHero = seq[seq.length - 1];
+
+      if (opening === 'wait') {
+        var jump = location.hash && location.hash !== '#home' && location.hash !== '#main';
+        if (!heroOK || y0 >= 1 || jump) opening = 'done';
+        else if (time !== undefined && fontsIn && document.visibilityState !== 'hidden') { opening = 'run'; start = time; runSeq = seq; }
+        else hHero = seq[0];
+      }
+      if (opening === 'run') {
+        var o = play((time === undefined ? now() : time) - start, runSeq);
+        if (o < 0) opening = 'done'; else hHero = o;
+      }
+
+      var e = heroOK ? smooth(y0 / (hero.offsetHeight * 0.618)) : 1;
+      var h = hHero + (S.wide - hHero) * e;
+      var s = Math.exp(Math.log(sHero) + (Math.log(sNav) - Math.log(sHero)) * e);
+      var navX = pr.left + (pr.width - navW) / 2;
+      var navY = pr.top + (pr.height + boxH(S.wide) * sNav) / 2;
+      var y = sr.bottom + (navY - sr.bottom) * e;
+      /* It never runs over the headline: its foot stays a margin above the headline's top until the headline has gone under the top bar. */
+      if (heroOK && e < 1) y = Math.min(y, Math.max(tt - margin, navY));
+      draw(h, s, sr.left + (navX - sr.left) * e, y);
+      if (opening !== 'done') frame = requestAnimationFrame(render);
+    };
+
+    var queue = function () { if (on && !frame) frame = requestAnimationFrame(render); };
+    var enable = function () {
+      on = true;
+      logo.classList.add('is-live');
+      render();
+    };
+    var disable = function () {
+      on = false; lastH = -1; drawn = '';
+      if (opening !== 'done') opening = 'done';
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      shape(S.wide);
+      logo.classList.remove('is-live');
+      root.classList.remove('logo-js');
+      logo.style.width = logo.style.height = logo.style.transform = '';
+    };
+    var sync = function () { if (reduce.matches) { if (on) disable(); } else if (!on) enable(); };
+    var fonts = function () { fontsIn = true; queue(); };
+
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    if (reduce.addEventListener) reduce.addEventListener('change', sync);
+    else if (reduce.addListener) reduce.addListener(sync);
+    if (!fontsIn) { document.fonts.ready.then(fonts); setTimeout(fonts, 1000); }
+    sync();
   })();
 
 (function () {

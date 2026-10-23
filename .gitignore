@@ -1,6 +1,7 @@
 # Publish only the public page. Planning notes in this folder stay local.
 /*
 !/index.html
+!/logo-shapeshift.js
 !/CNAME
 !/.gitignore
 !/media/
