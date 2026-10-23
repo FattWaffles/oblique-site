@@ -22,8 +22,9 @@
   @font-face { font-family: "Cyborg Blop"; src: url("fonts/CyborgBlop-Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
   @font-face { font-family: "Oblique Trace Tall"; src: url("fonts/ObliqueTraceTall-Heavy.otf") format("opentype"); font-weight: 900; font-style: normal; font-display: swap; }
 
-  /* Layout follows koto.com's homepage, section for section (see koto-reference.md).
-     Type, color, copy and media are Oblique's own. Tokens: see design-plan.md. */
+  /* Layout follows the Figma page Website - Live (Oblique Brand Style Guide file): the frames "oblique.so live, desktop 1440" and "oblique.so live, phone 390",
+     restyled on the golden ratio 2026-10-22 and 2026-10-23. Their Golden notes list every column, step, size and departure. Sections still follow koto.com's homepage (see koto-reference.md).
+     Type, color, copy and media are Oblique's own. */
   :root {
     --white: #FFFFFF;
     --ink: #0E0E14;
@@ -36,34 +37,52 @@
     --orange: #FF8A1E;
     --yellow: #FFD60A;
 
-    /* Type roles (Josie, 2026-10-21): the style guide's FK Grotesk sets headings and text, FK Grotesk Mono sets the labels. Weights, line heights and tracking follow the guide's Oblique/* styles; sizes are unchanged. */
+    /* Type roles (Josie, 2026-10-21): the style guide's FK Grotesk sets headings and text, FK Grotesk Mono sets the labels. Weights, line heights and tracking follow the guide's Web/Desktop and Web/Phone styles. */
     --font-sans: "FK Grotesk", "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
     --font-cond: var(--font-sans);
     --font-mono: "FK Grotesk Mono", "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
     --font-display: var(--font-sans);
 
-    /* Type sizes on the golden ratio scale (Josie, 2026-10-21): body 18, steps of phi to the half, rounded to whole pixels: 11 14 18 23 29 37 47 60 76. From golden-ratio-design's contract for Oblique (examples/oblique.golden.json). Phones and tablets step down below. */
-    --t-label: 0.6875rem;   /* 11 */
-    --t-small: 0.875rem;    /* 14 */
-    --t-body: 1.125rem;     /* 18 */
-    --t-lead: 1.4375rem;    /* 23: card and row titles */
-    --t-big: 2.3125rem;     /* 37: statements and figures */
-    --t-section: 3.75rem;   /* 60: partner names and the Contact heading */
+    /* Type sizes on the golden ratio (Golden notes, 2026-10-22): body 18 and whole steps of phi, 11 18 29 47 76, from golden-ratio-design's contract for Oblique (examples/oblique.golden.json). Below 960 px the two biggest sizes step down one step, as in the phone frame. */
+    --t-label: 0.6875rem;   /* 11: labels and media notes */
+    --t-body: 1.125rem;     /* 18: body, pills, links and small text (small text moved up to 18: 11 is too small for paragraphs on screen) */
+    --t-big: 1.8125rem;     /* 29: the intro, partner lines, the Contact line, row and card titles */
+    --t-section: 2.9375rem; /* 47: partner names, the Contact heading and result figures */
     --t-hero: 4.75rem;      /* 76: the guide's Hero */
 
-    --margin: 1rem;
-    --gap: 0.75rem;
-    --section: clamp(6rem, 1rem + 18vw, 19rem);
-    --radius: 4px;
-    --radius-media: 6px;
-    --measure: 34em;
+    /* Line heights, the guide's three stops: 1.0 for the hero, names, headings, figures and pills; 1.272 for big text, titles and labels; 1.618 for running text. */
+    --lh-tight: 1;
+    --lh-mid: 1.272;
+    --lh-text: 1.618;
+
+    /* Spacing run: each step is the sum of the two before it. */
+    --space-5: 0.3125rem;
+    --space-8: 0.5rem;
+    --space-13: 0.8125rem;
+    --space-21: 1.3125rem;
+    --space-34: 2.125rem;
+    --space-55: 3.4375rem;
+    --space-89: 5.5625rem;
+    --space-144: 9rem;
+    --space-233: 14.5625rem;
+
+    /* Phones: margin 21, gutter 13, one column of 348 at 390. From 720 px: margin 34, gutter 21; from 960 px the side column (514) and the content column (837) split the inner width 0.382 to 0.618. */
+    --margin: var(--space-21);
+    --gap: var(--space-13);
+    /* Corners: 3 for highlights and chips, 5 for panels and buttons, 8 for media, full for pills. */
+    --radius-hl: 3px;
+    --radius: 5px;
+    --radius-media: 8px;
+    /* Running text stops at 517, 0.618 of the content column: a width from phi, off the spacing run (logged in the Golden notes). */
+    --measure: 32.3125rem;
   }
-  @media (min-width: 960px) { :root { --margin: 1.25rem; } }
-  /* Tablets one half step down for the two biggest sizes, phones one more (ACTIONABLE STEPS. is about 9 em, so 76 needs the 960 px layout). */
-  @media (max-width: 959px) { :root { --t-section: 2.9375rem; --t-hero: 3.75rem; } }
-  @media (max-width: 719px) { :root { --t-big: 1.8125rem; --t-section: 2.3125rem; --t-hero: 2.9375rem; } }
+  @media (min-width: 720px) { :root { --margin: var(--space-34); --gap: var(--space-21); } }
+  /* Phones and tablets: the phone frame's sizes, Hero 47, and 29 for partner names, the Contact heading and result figures. */
+  @media (max-width: 959px) { :root { --t-section: 1.8125rem; --t-hero: 2.9375rem; } }
 
   *, *::before, *::after { box-sizing: border-box; }
+  /* Hidden sections and partners stay in the markup (Josie hid them in both frames); this keeps a display rule below from showing them. */
+  [hidden] { display: none !important; }
   html { background: var(--white); color: var(--grey); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
   body {
@@ -72,184 +91,215 @@
     color: var(--grey);
     font-family: var(--font-sans);
     font-size: var(--t-body);
-    line-height: 1.3;
+    line-height: var(--lh-text);
     overflow-wrap: break-word;
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, p, ul, ol, dl, dd, figure, hgroup { margin: 0; }
   h1, h2, h3 { font-weight: inherit; }
-  h3 { font-size: var(--t-lead); }
+  h3 { font-size: var(--t-big); line-height: var(--lh-mid); }
   ul, ol { padding: 0; list-style: none; }
   a { color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
   a:hover { color: var(--ink); }
   /* The word oblique: set plain in the text around it, as the style guide sets it (Josie, 2026-10-21), lowercase, linked home. Underline only on hover and focus. */
   .brand-word { color: inherit; text-decoration: none; }
   .brand-word:hover, .brand-word:focus-visible { text-decoration-line: underline; }
-  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
+  /* Focus ring 2.618, the stroke run's step above 1.618 (Chrome draws it 2 px wide on standard screens). */
+  :focus-visible { outline: 2.618px solid var(--blue); outline-offset: 3px; border-radius: 2px; }
   main:focus { outline: none; }
   .vh { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .skip { position: absolute; left: var(--margin); top: -6rem; z-index: 100; padding: 0.5rem 0.75rem; background: var(--ink); color: var(--white); border-radius: var(--radius); font-size: var(--t-small); text-decoration: none; }
-  .skip:focus { top: 0.5rem; color: var(--white); }
+  .skip { position: absolute; left: var(--margin); top: -5.5625rem; z-index: 100; padding: var(--space-8) var(--space-13); background: var(--ink); color: var(--white); border-radius: var(--radius); font-size: var(--t-body); text-decoration: none; }
+  .skip:focus { top: var(--space-8); color: var(--white); }
+  /* Max width 1680: the site's own, kept by the Golden notes as a departure. */
   .wrap { width: 100%; max-width: 1680px; margin-inline: auto; padding-inline: var(--margin); }
 
   /* Koto's small labels: mono, uppercase. */
-  .label { font-family: var(--font-mono); font-size: var(--t-label); line-height: 1.3; letter-spacing: 0.1em; text-transform: uppercase; }
-  /* Large statements: the guide's Lead (Medium). */
-  .big { font-family: var(--font-cond); font-weight: 500; font-size: var(--t-big); line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+  .label { font-family: var(--font-mono); font-size: var(--t-label); line-height: var(--lh-mid); letter-spacing: 0.1em; text-transform: uppercase; }
+  /* Large statements: the guide's Big (Medium). */
+  .big { font-family: var(--font-cond); font-weight: 500; font-size: var(--t-big); line-height: var(--lh-mid); letter-spacing: -0.01em; color: var(--ink); }
   .grey { color: var(--grey); }
 
-  /* Placeholders: every unknown stays visible in square brackets. */
-  .ph { background: var(--frost); border-radius: 3px; padding: 0 0.18em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-  .slot { position: relative; display: flex; align-items: flex-end; width: 100%; padding: 0.75rem; background: var(--frost); border: 1px dashed var(--line); color: var(--grey); font-size: var(--t-small); line-height: 1.4; border-radius: var(--radius-media); }
+  /* Placeholders: every unknown stays visible in square brackets, on a frost highlight. Highlights follow the text size: 0.18 em each side (a departure the Golden notes log).
+     .hl draws the same highlight round a filled name, as the frame keeps it on PROFITMIND. */
+  .ph, .hl { background: var(--frost); border-radius: var(--radius-hl); padding: 0 0.18em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  /* Media slots keep their formats, off the golden run (Golden notes): 16:9 for video, 4:3 for photos and partner video on phones, 5:3 for the portrait. */
+  .slot { position: relative; display: flex; align-items: flex-end; width: 100%; padding: var(--space-13); background: var(--frost); border: 1px dashed var(--line); color: var(--grey); font-size: var(--t-label); line-height: var(--lh-mid); border-radius: var(--radius-media); }
 
-  /* Top bar: wordmark left, pill tabs for each section, clock right. The current section's pill fills dark. */
+  /* Top bar: logo loop, the pill tabs bottom-aligned beside it, clock right. The current section's pill fills dark. */
   .topbar { position: fixed; inset: 0 0 auto 0; z-index: 20; pointer-events: none; }
-  .topbar-inner { display: flex; align-items: flex-start; gap: var(--gap); padding: var(--margin); }
+  .topbar-inner { display: flex; align-items: flex-start; gap: var(--space-13); padding: var(--space-21) var(--margin); }
+  /* Pill and clock height 44: the touch target minimum, a departure the Golden notes log. */
   .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--frost); border-radius: var(--radius); }
-  /* The loop is a square with the box in a band at x 20 to 86 percent, y 40 to 64 percent. The panel crops to that band.
+  /* The loop is a square with the box in a band at x 20 to 86 percent, y 39 to 64 percent, the same in every frame of the loop. The panel crops to that band.
      The loop and its poster are transparent, so the panel has no fill and the page white shows through. */
-  /* --logo scales the whole mark: panel, loop and offsets together (1.6, Josie 2026-10-17: "needs to be bigger"). */
-  .wordmark { --logo: 1.6; position: relative; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; overflow: hidden; background: transparent; color: var(--ink); text-decoration: none; }
-  .logo-loop { position: absolute; width: calc(7.14rem * var(--logo)); height: calc(7.14rem * var(--logo)); left: calc(50% - 3.78rem * var(--logo)); top: calc(50% - 3.7rem * var(--logo)); }
-  .tabs { pointer-events: auto; min-width: 0; }
-  .tabs ul { display: flex; gap: 0.375rem; }
-  .tabs a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 1.125rem; background: var(--line); border-radius: 999px; color: var(--ink); font-size: var(--t-body); font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
+  /* --logo scales the whole mark: panel, loop and offsets together (1.6, Josie 2026-10-17: "needs to be bigger"). The panel keeps its drawn size, 166.4 x 70.4 (a departure the Golden notes log);
+     the loop is drawn 248 square so the box fills the panel, as in both frames (2026-10-23). */
+  .wordmark { --logo: 1.6; position: relative; flex: none; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; overflow: hidden; background: transparent; color: var(--ink); text-decoration: none; }
+  .logo-loop { position: absolute; width: calc(9.6875rem * var(--logo)); height: calc(9.6875rem * var(--logo)); left: calc(-1.875rem * var(--logo)); top: calc(-3.515625rem * var(--logo)); }
+  .tabs { pointer-events: auto; min-width: 0; align-self: flex-end; }
+  .tabs ul { display: flex; gap: var(--space-5); }
+  .tabs a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-21); background: var(--line); border-radius: 999px; color: var(--ink); font-size: var(--t-body); font-weight: 500; line-height: var(--lh-tight); text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
   .tabs a:hover { background: #CDCDC6; }
   .tabs a[aria-current="true"] { background: var(--ink); color: var(--white); }
   .tabs a:focus-visible { outline-offset: 2px; border-radius: 999px; }
-  /* Section jumps land below the tab row. */
-  main section[id] { scroll-margin-top: 6.5rem; }
-  @media (max-width: 719px) { main section[id] { scroll-margin-top: 10rem; } }
-  .clock-panel { margin-left: auto; padding: 0 0.875rem; color: var(--ink); }
+  /* Section jumps land below the top bar. */
+  main section[id] { scroll-margin-top: 7.5rem; }
+  @media (max-width: 959px) { main section[id] { scroll-margin-top: 10.5rem; } }
+  .clock-panel { margin-left: auto; padding: 0 var(--space-13); color: var(--ink); }
   .clock-panel time { font-variant-numeric: tabular-nums; }
-  @media (max-width: 719px) {
-    .topbar-inner { flex-wrap: wrap; padding-inline: 0; padding-bottom: 0.625rem; background: var(--white); pointer-events: auto; }
+  /* Below 960: a white bar, the logo row on top and the pill row under it, which scrolls sideways when it runs out of room. Tablets keep the clock at the right of the logo row. */
+  @media (max-width: 959px) {
+    .topbar-inner { flex-wrap: wrap; column-gap: 0; padding: var(--space-21) 0 var(--space-8); background: var(--white); pointer-events: auto; }
     .wordmark { margin-left: var(--margin); }
-    /* Phones: the pill row sits under the wordmark and scrolls sideways. */
-    .tabs { flex-basis: 100%; overflow-x: auto; scrollbar-width: none; }
+    .tabs { order: 2; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; align-self: auto; }
     .tabs::-webkit-scrollbar { display: none; }
     .tabs ul { padding-inline: var(--margin); width: max-content; }
+    .clock-panel { order: 1; margin-right: var(--margin); }
+  }
+  /* Phones: no clock, and the logo sits near the middle, 126 in at 390 wide, where Josie placed it in the phone frame. */
+  @media (max-width: 719px) {
+    .wordmark { margin-left: calc(50% - 4.3125rem); }
     .clock-panel { display: none; }
   }
 
-  /* 1. Hero: full-screen work with a very large headline high on the screen, just under the top bar (Josie's Acronym reference, 2026-10-18). */
-  .hero { position: relative; height: 100vh; height: 100svh; min-height: 30rem; }
-  .slot-hero { position: absolute; inset: 0; height: 100%; border-radius: 0; border: 0; border-bottom: 1px dashed var(--line); align-items: flex-end; justify-content: flex-end; padding: 0 var(--margin) var(--margin); }
-  .hero-text { position: absolute; left: 0; right: 0; top: 8.5rem; pointer-events: none; }
-  .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--t-hero); line-height: 0.95; letter-spacing: -0.02em; text-transform: uppercase; color: var(--ink); }
+  /* 1. Hero: the first screen is a golden rectangle, 1440 x 890 on desktop and 390 x 631 on the phone, never taller than the screen. Full-bleed media, the headline at its foot. */
+  .hero { position: relative; height: min(61.8vw, 100vh); height: min(61.8vw, 100svh); min-height: 23.5625rem; }
+  @media (max-width: 719px) { .hero { height: min(161.8vw, 100vh); height: min(161.8vw, 100svh); } }
+  .slot-hero { position: absolute; inset: 0; height: 100%; border-radius: 0; border: 0; border-bottom: 1px dashed var(--line); align-items: flex-end; justify-content: flex-end; padding: 0 var(--margin) var(--space-21); }
+  /* The headline's last line rests on the slot note's line on desktop, and 13 above it below 960: the offset is the slot's border, padding and note line. */
+  .hero-text { position: absolute; left: 0; right: 0; bottom: calc(1px + var(--space-21) + var(--t-label) * var(--lh-mid)); pointer-events: none; }
+  @media (max-width: 959px) { .hero-text { bottom: calc(1px + var(--space-21) + var(--t-label) * var(--lh-mid) + var(--space-13)); } }
+  .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--t-hero); line-height: var(--lh-tight); letter-spacing: -0.02em; text-transform: uppercase; color: var(--ink); }
+  /* Desktop sets two lines, World building for / brands telling a story; narrower screens wrap each again (five lines on the phone). */
   .hero h1 span { display: block; }
-  /* Phones: the wordmark and pill row stack, so the headline starts lower; LATE NIGHT IDEAS and ACTIONABLE STEPS. wrap to two lines each. */
-  @media (max-width: 719px) {
-    .hero-text { top: 11.5rem; }
-  }
 
-  /* 2. Intro statement: Koto. One large paragraph, white then grey. */
-  .intro { padding-top: 3.5rem; }
-  .intro p { max-width: 18em; }
-  @media (min-width: 960px) { .intro p { max-width: 46%; min-width: 18em; } }
+  /* 2. Intro statement: Koto. One large paragraph, ink then grey, across the inner width as the frames set it. */
+  .intro { padding-top: var(--space-55); }
 
-  /* 3. Partnerships: one lockup per partner. Name, More pill, line and figure on the left; a large video on the right. */
-  .work { padding-top: 3.5rem; }
-  .work-head { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding-bottom: 1.25rem; }
+  /* 3. Partnerships: one lockup per partner. Name, More pill, line and figure on the left; a large video on the right. Phones stack them. */
+  .work { padding-top: var(--space-55); }
+  .work-head { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-13); padding-bottom: var(--space-21); }
   .work-head h2 { color: var(--ink); }
-  .partner { display: grid; grid-template-areas: "top" "media" "line" "stat"; padding-top: 1rem; border-top: 1px solid var(--line); }
-  .partner + .partner { margin-top: 4rem; }
-  .partner-top { grid-area: top; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 0.75rem 1rem; }
-  .partner-name { font-family: var(--font-cond); font-weight: 700; font-size: var(--t-section); line-height: 1; letter-spacing: -0.01em; color: var(--ink); }
-  .pill { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1.25rem; background: var(--line); border-radius: 999px; color: var(--ink); font-size: var(--t-body); font-weight: 500; text-decoration: none; transition: background-color 200ms ease; }
+  .partner { display: grid; grid-template-areas: "top" "media" "line" "stat"; padding-top: var(--space-21); border-top: 1px solid var(--line); }
+  .partner + .partner { margin-top: var(--space-55); }
+  .partner-top { grid-area: top; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-13); }
+  .partner-name { font-family: var(--font-cond); font-weight: 700; font-size: var(--t-section); line-height: var(--lh-tight); letter-spacing: -0.01em; color: var(--ink); }
+  .pill { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-21); background: var(--line); border-radius: 999px; color: var(--ink); font-size: var(--t-body); font-weight: 500; line-height: var(--lh-tight); text-decoration: none; transition: background-color 200ms ease; }
   .pill:hover { background: #CDCDC6; color: var(--ink); }
-  .partner-media { grid-area: media; margin-top: 1rem; }
+  .partner-media { grid-area: media; margin-top: var(--space-13); }
   .slot-video { aspect-ratio: 4 / 3; }
-  .partner-line { grid-area: line; margin-top: 1.5rem; max-width: 17em; }
-  .partner-stat { grid-area: stat; margin-top: 1.5rem; }
-  .stat-figure { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-cond); font-weight: 700; font-size: var(--t-big); line-height: 1; letter-spacing: -0.01em; color: var(--ink); }
-  /* Plus badge: a dark pill with a white cross, sized to the figure. */
-  .plus { position: relative; flex: 0 0 auto; width: 1.6em; height: 1em; background: var(--ink); border-radius: 999px; }
-  .plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 0.5em; height: 0.08em; background: var(--white); transform: translate(-50%, -50%); }
+  .partner-line { grid-area: line; margin-top: var(--space-21); }
+  /* The frames set this line as bare text at the margin (Figma cannot highlight wrapped text), so the highlight hugs the words and keeps inside the column. */
+  .partner-line .ph { padding: 0; }
+  .partner-stat { grid-area: stat; margin-top: var(--space-21); }
+  .stat-figure { display: flex; align-items: center; gap: var(--space-8); font-family: var(--font-cond); font-weight: 700; font-size: var(--t-section); line-height: var(--lh-tight); letter-spacing: -0.01em; color: var(--ink); }
+  /* Plus badge: a dark pill with a white cross, 1.618 to 1 at its figure's size, its cross 0.5 by 0.081 of its height (departures the Golden notes log). */
+  .plus { position: relative; flex: 0 0 auto; width: 1.618em; height: 1em; background: var(--ink); border-radius: 999px; }
+  .plus::before, .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 0.5em; height: 0.081em; background: var(--white); transform: translate(-50%, -50%); }
   .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
-  .stat-label { margin-top: 0.375rem; max-width: 20em; color: var(--grey); }
-  .more { display: flex; align-items: flex-end; justify-content: flex-end; min-height: 8rem; margin-top: 4rem; padding: 1.25rem; background: var(--frost); border-radius: var(--radius); color: var(--ink); text-decoration: none; }
+  /* As a flex item the figure's highlight would sit flush with its 1.0 line; the frames draw it 1.2 em tall, so it overhangs 0.1 em each way without moving anything. */
+  .stat-figure .ph { padding-block: 0.1em; margin-block: -0.1em; }
+  .stat-label { margin-top: var(--space-5); color: var(--grey); }
+  /* Start a project: a frost panel 144 tall, its label bottom right. */
+  .more { display: flex; align-items: flex-end; justify-content: flex-end; min-height: 9rem; margin-top: var(--space-55); padding: var(--space-21); background: var(--frost); border-radius: var(--radius); color: var(--ink); text-decoration: none; }
   .more:hover .label { text-decoration: underline; }
   @media (min-width: 720px) { .slot-video { aspect-ratio: 16 / 9; } }
   @media (min-width: 960px) {
-    .partner { grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); grid-template-rows: auto 1fr auto; grid-template-areas: "top media" "line media" "stat media"; column-gap: 2rem; }
-    .partner + .partner { margin-top: 6rem; }
-    .partner-top { flex-direction: column; }
-    .partner-top .pill { align-self: flex-end; margin-top: 2rem; }
+    /* Text beside media splits 514 and 837 (0.382 and 0.618): name and More at the top of the text column, the line and the figure at its foot. */
+    .partner { grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); grid-template-rows: auto 1fr auto auto; grid-template-areas: "top media" ". media" "line media" "stat media"; column-gap: var(--gap); }
+    .partner + .partner { margin-top: var(--space-89); }
+    .partner-top { flex-direction: column; gap: var(--space-34); }
+    .partner-top .pill { align-self: flex-end; }
     .partner-media { margin-top: 0; }
-    .partner-line { align-self: end; margin-top: 3rem; }
-    .partner-stat { margin-top: 2.5rem; }
+    .partner-line { margin-top: 0; }
+    .partner-stat { margin-top: var(--space-34); }
   }
 
-  /* 4. Approach: Koto's news grid. One large card, two small ones. */
-  .practices { padding-top: var(--section); }
-  .practices-head { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+  /* 4. Approach: Koto's news grid. One large card, two small ones. Hidden in both frames for now. */
+  .practices { padding-top: var(--space-21); }
+  .practices-head { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-13); padding-bottom: var(--space-21); border-bottom: 1px solid var(--line); }
   .practices-head h2 { color: var(--ink); }
-  .cards { display: grid; gap: 2.5rem var(--gap); margin-top: 1.25rem; }
+  .cards { display: grid; gap: var(--space-34) var(--gap); margin-top: var(--space-21); }
   .slot-card { aspect-ratio: 16 / 9; }
-  /* 5. IRL reuses the Approach grid: three equal cards with 4:3 photos. */
+  /* 5. IRL reuses the Approach grid: three equal cards with 4:3 photos. Hidden in both frames for now. */
   .slot-photo { aspect-ratio: 4 / 3; }
-  .practice h3 { margin-top: 0.75rem; color: var(--ink); }
-  .practice p { margin-top: 0.375rem; max-width: var(--measure); font-size: var(--t-small); }
+  .practice h3 { margin-top: var(--space-13); color: var(--ink); }
+  .practice p { margin-top: var(--space-5); max-width: var(--measure); }
   .practice .services { color: var(--dusk); }
-  .chip-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
-  .chip { display: inline-block; padding: 0.25rem 0.4rem; background: var(--frost); border-radius: 3px; color: var(--ink); }
+  .chip-row { display: flex; align-items: center; gap: var(--space-8); margin-top: var(--space-13); }
+  .chip { display: inline-block; padding: 0.1875rem var(--space-5); background: var(--frost); border-radius: var(--radius-hl); color: var(--ink); }
   @media (min-width: 720px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .practice-lead { grid-column: 1 / -1; } .irl-cards .practice:first-child { grid-column: 1 / -1; } }
   @media (min-width: 960px) {
-    .cards { grid-template-columns: minmax(0, 1.57fr) minmax(0, 1fr) minmax(0, 1fr); }
+    /* Approach and IRL start 233 below the section above on desktop, 21 on the phone. The lead card is 1.618 times the other two (594, 368, 368). */
+    .practices { padding-top: var(--space-233); }
+    .cards { grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr) minmax(0, 1fr); }
     .practice-lead { grid-column: auto; }
     .irl-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .irl-cards .practice:first-child { grid-column: auto; }
   }
 
-  /* 6. Contact: Koto. Heading and portrait card left, hairline rows right. */
-  .contact { padding-top: var(--section); }
-  .contact h2 { font-size: var(--t-section); }
-  .portrait { position: relative; width: min(100%, 23rem); margin-top: 2rem; }
+  /* 6. Contact: Koto. Heading and portrait card left, hairline rows right. It starts 21 below the Start a project panel. */
+  .contact { padding-top: var(--space-21); }
+  .contact h2 { font-size: var(--t-section); line-height: var(--lh-tight); letter-spacing: -0.01em; }
+  .contact-left { display: flex; flex-direction: column; gap: var(--space-34); }
+  /* Portrait 368 wide on desktop, the column's width below: 5:3, a departure the Golden notes log. */
+  .portrait { position: relative; width: min(100%, 23rem); }
   .slot-portrait { aspect-ratio: 5 / 3; align-items: flex-start; }
-  .portrait figcaption { position: absolute; left: 0.75rem; bottom: 0.75rem; color: var(--ink); }
-  .rows { margin-top: 3rem; }
-  .row { display: grid; gap: 0.375rem; padding: 1.25rem 0 3.5rem; border-top: 1px solid var(--line); }
+  .portrait figcaption { position: absolute; left: var(--space-13); bottom: var(--space-13); color: var(--ink); }
+  .rows { margin-top: var(--space-55); }
+  .row { display: grid; gap: var(--space-5); padding: var(--space-21) 0 var(--space-55); border-top: 1px solid var(--line); }
   .row h3 { color: var(--ink); }
   .row-line { color: var(--ink); }
-  .row-sub { color: var(--grey); font-size: var(--t-small); }
-  .row-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 0.875rem; margin-top: 0.25rem; font-size: var(--t-small); }
-  .row-stack li + li { margin-top: 0.25rem; }
-  .row-stack a { display: inline-block; padding-block: 0.375rem; font-size: var(--t-small); }
+  .row-sub { color: var(--grey); }
+  .row-links { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-8) var(--space-13); padding-top: var(--space-5); }
+  /* The booking placeholder is a flex item, so its highlight would fill the 1.618 line. It is drawn 1.2 em tall as in the frames, and its margins give back the rest of the line. */
+  .row-links > .ph { line-height: 1.2; margin-block: 0.209em; }
+  .row-stack li + li { margin-top: var(--space-5); }
+  .row-stack a { display: inline-block; padding-block: var(--space-5); }
   .book { color: var(--blue); }
   .book:hover { color: var(--blue); text-decoration-thickness: 2px; }
-  .copy { padding: 0.15em 0.5em; background: transparent; color: var(--grey); border: 1px solid var(--line); border-radius: var(--radius); font: inherit; cursor: pointer; }
+  .copy { padding: 2px var(--space-8); background: transparent; color: var(--grey); border: 1px solid var(--line); border-radius: var(--radius); font: inherit; cursor: pointer; }
   .copy:hover { color: var(--ink); border-color: var(--grey); }
   .copy-note { flex-basis: 100%; color: var(--ink); }
   .copy-note:empty { display: none; }
-  .footer { padding: 3rem var(--margin) var(--margin); font-size: var(--t-small); color: var(--dusk); }
-  .footer-inner { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; }
-  @media (min-width: 960px) {
-    .contact-grid { display: grid; grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); column-gap: 1rem; }
-    .contact-left { display: flex; flex-direction: column; }
-    .portrait { margin-top: auto; }
-    .rows { margin-top: 0.4rem; }
-    .row { grid-template-columns: minmax(0, 37fr) minmax(0, 63fr); column-gap: 1rem; align-items: start; }
+  /* Rows split 309 and 507 (0.382 and 0.618 of the content column) from 720 px. */
+  @media (min-width: 720px) {
+    .row { grid-template-columns: minmax(0, 309fr) minmax(0, 507fr); column-gap: var(--gap); align-items: start; }
     .row > :not(h3) { grid-column: 2; }
     .row > h3 { grid-row: 1 / span 3; }
-    .footer-inner { margin-left: calc(44% + 0.5rem); }
+    /* Rows with one text part (Studio, Channels) stand 3 taller, as in the desktop frame, where their text pads 13 below and the others 5. */
+    .row > h3 + :last-child { margin-bottom: 3px; }
+  }
+  @media (min-width: 960px) {
+    .contact-grid { display: grid; grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); column-gap: var(--gap); }
+    .contact-left { justify-content: space-between; }
+    .rows { margin-top: 0; padding-top: var(--space-5); }
+  }
+
+  /* Footer: the client strip, then the copyright line, which starts on the content column on desktop (569 in at 1440: 34 + 514 + 21). */
+  .footer { padding: var(--space-55) var(--margin) var(--space-21); color: var(--dusk); }
+  .footer-inner { max-width: calc(1680px - 2 * var(--margin)); margin-inline: auto; }
+  @media (min-width: 720px) { .footer { padding-bottom: var(--space-34); } }
+  @media (min-width: 960px) {
+    .footer-inner { display: grid; grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); column-gap: var(--gap); }
+    .footer-inner > * { grid-column: 2; }
   }
 
   /* Past-client strip: one-colour masks from media/clients/ (sources in brand/client-logos/README.md),
-     painted with the current text colour, the row drawn twice so the drift loops without a seam. */
-  .clients { margin-top: 0; margin-bottom: 2rem; margin-left: calc(-1 * var(--margin)); margin-right: calc(-1 * var(--margin)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; color: var(--dusk);
+     painted with the current text colour, the row drawn twice so the drift loops without a seam. Logos keep their own geometry: 14 tall on desktop, 12 on phones, so the strip stands 84 and 82 (departures the Golden notes log). */
+  .clients { margin: 0 calc(-1 * var(--margin)) var(--space-34); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; color: var(--dusk);
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
   .clients:hover, .clients:focus-within { color: var(--ink); }
-  .clients-track { display: flex; align-items: center; width: max-content; padding: 1.75rem 0; animation: clients-drift 70s linear infinite; }
+  .clients-track { display: flex; align-items: center; width: max-content; padding: var(--space-34) 0; animation: clients-drift 70s linear infinite; }
   .clients:hover .clients-track, .clients:focus-within .clients-track { animation-play-state: paused; }
-  .client { flex: none; height: 14px; width: calc(14px * var(--ar, 4)); max-width: 120px; margin-right: 3rem; background: currentColor;
+  .client { flex: none; height: 14px; width: calc(14px * var(--ar, 4)); max-width: 120px; margin-right: var(--space-55); background: currentColor;
     -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
   @keyframes clients-drift { to { transform: translateX(-50%); } }
-  @media (max-width: 640px) { .client { height: 12px; width: calc(12px * var(--ar, 4)); max-width: 96px; margin-right: 2rem; } }
+  @media (max-width: 719px) { .client { height: 12px; width: calc(12px * var(--ar, 4)); max-width: 96px; margin-right: var(--space-34); } }
   @media (prefers-reduced-motion: reduce) {
     .clients { -webkit-mask-image: none; mask-image: none; }
-    .clients-track { width: auto; flex-wrap: wrap; justify-content: center; gap: 1rem 0; padding: 1.5rem var(--margin); }
-    .client { margin: 0 1rem; }
+    .clients-track { width: auto; flex-wrap: wrap; justify-content: center; gap: var(--space-21) 0; padding: var(--space-34) var(--margin); }
+    .client { margin: 0 var(--space-21); }
     .client[aria-hidden="true"] { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -281,19 +331,19 @@
 
   <!-- 1. Hero -->
   <section class="hero" id="home" aria-labelledby="hero-title">
-    <!-- Drop in: media/lead.mp4, full-screen loop (muted, loop, playsinline, poster media/lead.jpg, a visible pause button, paused under prefers-reduced-motion). Pick footage with a calm, light upper half so the ink headline stays readable over it. -->
+    <!-- Drop in: media/lead.mp4, full-screen loop (muted, loop, playsinline, poster media/lead.jpg, a visible pause button, paused under prefers-reduced-motion). Pick footage with a calm, light lower left so the ink headline at the foot stays readable over it. -->
     <div class="slot slot-hero" role="img" aria-label="[Partner name], [what the loop shows]"><span>[Lead video: full screen, silent loop]</span></div>
     <div class="wrap hero-text">
-      <h1 id="hero-title"><span>Where</span> <span>late night ideas</span> <span>become</span> <span>actionable steps.</span></h1>
+      <h1 id="hero-title"><span>World building for</span> <span>brands telling a story</span></h1>
     </div>
   </section>
 
-  <!-- 2. Intro statement: white, then grey. Partner names are folded in here. -->
+  <!-- 2. Intro statement: ink, then grey. Partner names are folded in here. Text as Josie wrote it in the Figma frames (2026-10-23). -->
   <section class="wrap intro" aria-label="About Oblique">
-    <p class="big"><a class="brand-word" href="/">oblique</a> makes sites, video and brand events for consumer brands and the agencies they hire. <span class="grey">Independent. Los Angeles. Founder-led. Partnerships with <span class="ph" data-todo="partner name, with permission">[Partner name]</span>, <span class="ph" data-todo="partner name, with permission">[Partner name]</span> and <span class="ph" data-todo="partner name, with permission">[Partner name]</span>.</span></p>
+    <p class="big"><a class="brand-word" href="/">oblique</a> is an international brand incubator where late night dreams, create irl relationships with both digital and analog. Building everything from websites, brands, strategy, video and brand events for consumer brands and the agencies they hire. <span class="grey">Los Angeles, New York, Atlanta. Recent Partnerships with Profitmind, Neutrogena, and Quote On.</span></p>
   </section>
 
-  <!-- 3. Partnerships: every client and case study is a partnership. Three to five. Copy one <article class="partner"> to add more, and update its ids. -->
+  <!-- 3. Partnerships: every client and case study is a partnership. Three to five. Copy one <article class="partner"> to add more, and update its ids. Partners two and three are hidden in both frames for now: remove hidden to show one. -->
   <section class="wrap work" id="partnerships" aria-labelledby="work-title">
     <div class="work-head">
       <h2 class="label" id="work-title">Partnerships</h2>
@@ -301,12 +351,12 @@
 
     <article class="partner" id="project-1" aria-labelledby="project-1-name">
       <div class="partner-top">
-        <h3 class="partner-name" id="project-1-name"><span class="ph" data-todo="partner name, with permission">[Partner one]</span></h3>
-        <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner one]</span></a>
+        <h3 class="partner-name" id="project-1-name"><span class="hl">PROFITMIND</span></h3>
+        <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about Profitmind</span></a>
       </div>
       <div class="partner-media">
         <!-- Drop in: media/project-1.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-1.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
-        <div class="slot slot-video" role="img" aria-label="[Partner one] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
+        <div class="slot slot-video" role="img" aria-label="Profitmind promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
       </div>
       <p class="partner-line big"><span class="ph" data-todo="one sentence on what the partnership achieved">[One sentence on what the partnership achieved]</span></p>
       <div class="partner-stat">
@@ -315,7 +365,7 @@
       </div>
     </article>
 
-    <article class="partner" id="project-2" aria-labelledby="project-2-name">
+    <article class="partner" id="project-2" aria-labelledby="project-2-name" hidden>
       <div class="partner-top">
         <h3 class="partner-name" id="project-2-name"><span class="ph" data-todo="partner name, with permission">[Partner two]</span></h3>
         <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner two]</span></a>
@@ -331,7 +381,7 @@
       </div>
     </article>
 
-    <article class="partner" id="project-3" aria-labelledby="project-3-name">
+    <article class="partner" id="project-3" aria-labelledby="project-3-name" hidden>
       <div class="partner-top">
         <h3 class="partner-name" id="project-3-name"><span class="ph" data-todo="partner name, with permission">[Partner three]</span></h3>
         <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner three]</span></a>
@@ -350,8 +400,8 @@
     <a class="more" href="#contact"><span class="label">Start a project</span></a>
   </section>
 
-  <!-- 4. Approach: Koto's news grid, one card per practice. -->
-  <section class="wrap practices" id="approach" aria-labelledby="practices-title">
+  <!-- 4. Approach: Koto's news grid, one card per practice. Hidden in both frames for now: remove hidden to show it. -->
+  <section class="wrap practices" id="approach" aria-labelledby="practices-title" hidden>
     <div class="practices-head">
       <h2 class="label" id="practices-title">Approach</h2>
       <p class="label">Digital, content and experiential</p>
@@ -384,8 +434,8 @@
     </div>
   </section>
 
-  <!-- 5. IRL: events, pop-ups and installations. Copy one <article> to add more, and update its ids. -->
-  <section class="wrap practices irl" id="irl" aria-labelledby="irl-title">
+  <!-- 5. IRL: events, pop-ups and installations. Copy one <article> to add more, and update its ids. Hidden in both frames for now: remove hidden to show it. -->
+  <section class="wrap practices irl" id="irl" aria-labelledby="irl-title" hidden>
     <div class="practices-head">
       <h2 class="label" id="irl-title">IRL</h2>
       <p class="label">Events, pop-ups and installations</p>
