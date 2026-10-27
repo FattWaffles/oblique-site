@@ -141,17 +141,19 @@
   .slot { position: relative; display: flex; align-items: flex-end; width: 100%; padding: var(--space-13); background: var(--frost); border: 1px dashed var(--line); color: var(--grey); font-size: var(--t-label); line-height: var(--lh-mid); border-radius: var(--radius-media); }
 
   /* Top bar: logo loop, the tabs beside it at its top, the clock right after them.
-     On desktop the logo's corner sits on the margin at (34, 34) and the bar ends near 144 (138.4, no fill) (golden grid copy, 2026-10-26). */
+     On desktop the logo's corner sits on the margin at (34, 34) and the bar ends at 123 (no fill) (golden grid copy, 2026-10-26). */
   .topbar { position: fixed; inset: 0 0 auto 0; z-index: 20; pointer-events: none; }
   .topbar-inner { display: flex; align-items: flex-start; gap: var(--space-13); padding: var(--space-34) var(--margin); }
   /* Tab and clock height 44: the touch target minimum, a departure the Golden notes log. */
   .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--frost); border-radius: var(--radius); }
   /* The logo is the turning loop again, small in the corner (Josie, 2026-10-26: "the little logo twirling in the left-hand corner"); the shape-shift block and its grow are off.
-     The loop is a square with the box in a band at x 20 to 86 percent, y 39 to 64 percent, the same in every frame of the loop. The panel crops to that band.
-     The loop and its poster are transparent, so the panel has no fill and the page shows through. --logo scales panel, loop and offsets together
-     (1.6, Josie 2026-10-17: "needs to be bigger"). The panel keeps its drawn size, 166.4 x 70.4 (a departure the Golden notes log). */
-  .wordmark { --logo: 1.6; position: relative; flex: none; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; overflow: hidden; background: transparent; color: var(--ink); text-decoration: none; }
-  .logo-loop { position: absolute; width: calc(9.6875rem * var(--logo)); height: calc(9.6875rem * var(--logo)); left: calc(-1.875rem * var(--logo)); top: calc(-3.515625rem * var(--logo)); }
+     Smaller since 2026-10-26 (Josie: "let's just make the logo smaller"; at 166.4 x 70.4 the turn cut the box off). The panel is 144 x 55, a golden rectangle on the
+     spacing run. Across all 300 frames of the 540 square loop the box covers x 52 to 487 and y 203 to 372, so the loop is drawn 168.35 square (53 / 170 of 540):
+     the box fits the panel at every angle (checked frame by frame: none touches an edge), 1 px clear top and bottom. The resting logo's left point (x 54) sits 2 px
+     inside the margin and it ends about 21 before the tabs;
+     the turning poses start further right. The loop and its poster are transparent, so the panel has no fill. */
+  .wordmark { position: relative; flex: none; width: var(--space-144); height: var(--space-55); padding: 0; overflow: hidden; background: transparent; color: var(--ink); text-decoration: none; }
+  .logo-loop { position: absolute; width: 10.5221rem; height: 10.5221rem; left: -0.9375rem; top: -3.893rem; }
   /* Tabs (Josie, 2026-10-26): Koto's nav with the pills taken off. Mono capitals at 11, 34 apart, level with the top of the logo, in electric blue.
      Each link keeps a 44 tall touch target. The current section and hover are underlined. */
   .tabs { position: relative; z-index: 2; pointer-events: auto; min-width: 0; }
