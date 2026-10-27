@@ -71,7 +71,9 @@
     --space-144: 9rem;
     --space-233: 14.5625rem;
     --space-377: 23.5625rem;
+    --space-610: 38.125rem;
     --space-987: 61.6875rem;
+    --space-1597: 99.8125rem;
 
     /* Phones: margin 21, gutter 13, one column of 348 at 390. From 720 px: margin 34, gutter 21; from 960 px the side column (514) and the content column (837) split the inner width 0.382 to 0.618. */
     --margin: var(--space-21);
@@ -180,14 +182,16 @@
   @media (max-width: 719px) {
     .tabs ul { gap: var(--space-21); }
     .clock-panel { display: none; }
+    /* The phone frame 374:62 (Josie, 2026-10-27: phones follow it, the hero stays 60): the tab row 8 under the logo, the white bar 144 tall. */
+    .topbar-inner { align-content: flex-start; row-gap: var(--space-8); min-height: var(--space-144); }
   }
 
   /* 1. Hero: the first screen is a golden rectangle, 1440 x 890 on desktop and 390 x 631 on the phone, never taller than the screen. Full-bleed media, the headline on its bottom edge. */
   .hero { position: relative; height: min(61.8vw, 100vh); height: min(61.8vw, 100svh); min-height: 23.5625rem; }
   @media (max-width: 719px) { .hero { height: min(161.8vw, 100vh); height: min(161.8vw, 100svh); } }
   .slot-hero { position: absolute; inset: 0; height: 100%; border-radius: 0; border: 0; border-bottom: 1px dashed var(--line); align-items: flex-end; justify-content: flex-end; padding: 0 var(--margin) var(--space-21); }
-  /* Phones: the placeholder note moves to the top right, under the white bar, clear of FOR BRANDS. */
-  @media (max-width: 719px) { .slot-hero { align-items: flex-start; padding-top: calc(var(--space-144) + var(--space-34)); } }
+  /* Phones: the placeholder note moves to the top right, right under the 144 white bar (the phone frame), clear of FOR BRANDS. */
+  @media (max-width: 719px) { .slot-hero { align-items: flex-start; padding-top: var(--space-144); } }
   /* The headline sits right on the hero's bottom edge (Josie, 2026-10-26: "all the way at the bottom", flush; it replaces the lower phi line, a departure).
      At line height 1 the baseline sits 0.1545 em above the line's foot and the round O and S dip 0.027 em below it, so the line hangs 0.125 em
      below the edge: the lowest point of the letters touches the edge and nothing crosses into the section below. */
@@ -221,8 +225,8 @@
     .intro { display: grid; grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); column-gap: var(--gap); min-height: var(--space-377); padding-top: var(--space-89); }
     .intro > * { grid-column: 2; }
   }
-  /* The line break before Quote On. is the frame's; narrower screens wrap on their own. */
-  @media (max-width: 959px) { .br-wide { display: none; } }
+  /* Phones: the band is 610 tall, as in the phone frame. */
+  @media (max-width: 719px) { .intro { min-height: var(--space-610); } }
 
   /* 3. Partnerships: one lockup per partner. Name, More pill, line and figure on the left; a large video on the right. Phones stack them. */
   .work { padding-top: var(--space-55); }
@@ -269,6 +273,17 @@
     .partner-line { margin-top: 0; }
     .partner-stat { margin-top: var(--space-34); }
   }
+  /* Phones, as the phone frame draws it: 144 above the head, a 1597 band; each partner leads with its video, then the name with More on its own row
+     at the right, 21 apart, and the line 34 below; Start a project is 89 tall. */
+  @media (max-width: 719px) {
+    .work { min-height: var(--space-1597); padding-top: var(--space-144); }
+    .partner { grid-template-areas: "media" "top" "line" "stat"; }
+    .partner-media { margin-top: 0; }
+    .partner-top { flex-direction: column; gap: var(--space-21); margin-top: var(--space-21); }
+    .partner-top .pill { align-self: flex-end; }
+    .partner-line { margin-top: var(--space-34); }
+    .more { min-height: var(--space-89); }
+  }
 
   /* 4. Approach: Koto's news grid. One large card, two small ones. Shown since 2026-10-26, as the frame shows it. */
   .practices { padding-top: var(--space-21); }
@@ -295,6 +310,13 @@
     .cards { grid-template-columns: minmax(0, 514fr) minmax(0, 408fr) minmax(0, 408fr); }
     .practice-lead { grid-column: auto; }
     .irl-cards .practice:first-child { grid-column: auto; }
+  }
+  /* Phones, as the phone frame draws it: 144 above each head, cards 21 apart, the example 5 under the text; IRL in a 1597 band with 21 under it. */
+  @media (max-width: 719px) {
+    .practices { padding-top: var(--space-144); }
+    .cards { row-gap: var(--space-21); }
+    .chip-row { margin-top: var(--space-5); }
+    .irl { min-height: var(--space-1597); padding-bottom: var(--space-21); }
   }
 
   /* 6. Contact: Koto. Heading and portrait card left, hairline rows right. 21 above it on phones; on desktop 199 (144 + 55) above and 123 (34 + 89) below. */
@@ -335,11 +357,22 @@
     .contact-left { justify-content: space-between; }
     .rows { margin-top: 0; padding-top: var(--space-5); }
   }
+  /* Phones, as the phone frame draws it: a 1597 band with 123 (89 + 34) above the heading and 76 (21 + 55) below the rows; the portrait 21 under
+     the heading, the rows 34 under the portrait; each row's text 8 under its heading (5 + 3) and 34 of space under it. */
+  @media (max-width: 719px) {
+    .contact { min-height: var(--space-1597); padding-top: calc(var(--space-89) + var(--space-34)); padding-bottom: calc(var(--space-21) + var(--space-55)); }
+    .contact-left { gap: var(--space-21); }
+    .rows { margin-top: var(--space-34); padding-top: var(--space-5); }
+    .row { padding-bottom: var(--space-34); }
+    .row > h3 { margin-bottom: 3px; }
+  }
 
   /* Footer: the client strip, then the copyright line, which starts on the content column on desktop (569 in at 1440: 34 + 514 + 21). */
   .footer { padding: var(--space-55) var(--margin) var(--space-21); color: var(--dusk); }
   .footer-inner { max-width: calc(1680px - 2 * var(--margin)); margin-inline: auto; }
   @media (min-width: 720px) { .footer { padding-bottom: var(--space-34); } }
+  /* Phones, as the phone frame draws it: a 233 band, the strip 34 from its top and 89 tall (rule below the strip's own), the copyright 21 under it, 55 of space at the foot. */
+  @media (max-width: 719px) { .footer { min-height: var(--space-233); padding-top: var(--space-34); padding-bottom: var(--space-55); } }
   @media (min-width: 960px) {
     .footer-inner { display: grid; grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); column-gap: var(--gap); }
     .footer-inner > * { grid-column: 2; }
@@ -356,6 +389,7 @@
     -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
   @keyframes clients-drift { to { transform: translateX(-50%); } }
   @media (max-width: 719px) { .client { height: 12px; width: calc(12px * var(--ar, 4)); max-width: 96px; margin-right: var(--space-34); } }
+  @media (max-width: 719px) { .clients { display: flex; align-items: center; min-height: var(--space-89); margin-bottom: var(--space-21); } }
   @media (prefers-reduced-motion: reduce) {
     .clients { -webkit-mask-image: none; mask-image: none; }
     .clients-track { width: auto; flex-wrap: wrap; justify-content: center; gap: var(--space-21) 0; padding: var(--space-34) var(--margin); }
@@ -404,7 +438,7 @@
 
   <!-- 2. Intro statement: ink, then grey. Partner names are folded in here. Text as Josie wrote it in the Figma frames (2026-10-23, revised in the golden grid copy 2026-10-26). The brand word and the grey sentence are in Oblique Second to None. -->
   <section class="wrap intro" aria-label="About Oblique">
-    <p class="big"><a class="brand-word serif" href="/">Oblique</a> is a brand incubator where late night dreams, create irl relationships with both digital and analog. Building everything from websites, brands, strategy, video and brand events for consumer brands and the agencies they hire. <span class="grey serif">Los Angeles, New York, Atlanta. Recent Partnerships with Profitmind, Neutrogena, and <br class="br-wide">Quote&nbsp;On.</span></p>
+    <p class="big"><a class="brand-word serif" href="/">Oblique</a> is a brand incubator where late night dreams, create irl relationships with both digital and analog. Building everything from websites, brands, strategy, video and brand events for consumer brands and the agencies they hire. <span class="grey serif">Los Angeles, New York, Atlanta. Recent Partnerships with Profitmind, Neutrogena, and Quote&nbsp;On.</span></p>
   </section>
 
   <!-- 3. Partnerships: every client and case study is a partnership. Three to five. Copy one <article class="partner"> to add more, and update its ids. Partner three is hidden (the frame shows two): remove hidden to show it.
