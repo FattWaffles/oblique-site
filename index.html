@@ -54,7 +54,6 @@
     --t-big: 1.8125rem;     /* 29: the intro, partner lines, the Contact line, row and card titles */
     --t-section: 2.9375rem; /* 47: partner names, the Contact heading and result figures */
     --t-hero: 7.6875rem;    /* 123: the hero headline, 18 x phi^4 (Josie, 2026-10-26) */
-    --hero-lines: 2;        /* WORLD BUILDING / FOR BRANDS; three lines on phones */
 
     /* Line heights, the guide's three stops: 1.0 for the hero, names, headings, figures and pills; 1.272 for big text, titles and labels; 1.618 for running text. */
     --lh-tight: 1;
@@ -87,7 +86,7 @@
   @media (min-width: 720px) { :root { --margin: var(--space-34); --gap: var(--space-21); } }
   /* Tablets: Hero 76, and 29 for partner names, the Contact heading and result figures. Phones: Hero 60, the half step (Josie, 2026-10-26). */
   @media (max-width: 959px) { :root { --t-section: 1.8125rem; --t-hero: 4.75rem; } }
-  @media (max-width: 719px) { :root { --t-hero: 3.75rem; --hero-lines: 3; } }
+  @media (max-width: 719px) { :root { --t-hero: 3.75rem; } }
   /* Under 360 wide FOR BRANDS at 60 (317 px) runs out of room, so the headline takes the step below, 47. */
   @media (max-width: 359px) { :root { --t-hero: 2.9375rem; } }
 
@@ -181,13 +180,16 @@
     .clock-panel { display: none; }
   }
 
-  /* 1. Hero: the first screen is a golden rectangle, 1440 x 890 on desktop and 390 x 631 on the phone, never taller than the screen. Full-bleed media, the headline on its lower phi line. */
+  /* 1. Hero: the first screen is a golden rectangle, 1440 x 890 on desktop and 390 x 631 on the phone, never taller than the screen. Full-bleed media, the headline on its bottom edge. */
   .hero { position: relative; height: min(61.8vw, 100vh); height: min(61.8vw, 100svh); min-height: 23.5625rem; }
   @media (max-width: 719px) { .hero { height: min(161.8vw, 100vh); height: min(161.8vw, 100svh); } }
   .slot-hero { position: absolute; inset: 0; height: 100%; border-radius: 0; border: 0; border-bottom: 1px dashed var(--line); align-items: flex-end; justify-content: flex-end; padding: 0 var(--margin) var(--space-21); }
-  /* The headline's top sits on the lower phi line, 61.8% down the hero: y 550 at 1440 x 890 (Josie, 2026-10-26). Where the hero is too short for that
-     (short windows, 960 to 1041 wide, phones turned sideways), the headline lifts so its foot stays one margin above the hero's foot. */
-  .hero-text { position: absolute; left: 0; right: 0; top: min(61.8%, 100% - var(--hero-lines) * var(--t-hero) - var(--margin)); pointer-events: none; }
+  /* Phones: the placeholder note moves to the top right, under the white bar, clear of FOR BRANDS. */
+  @media (max-width: 719px) { .slot-hero { align-items: flex-start; padding-top: calc(var(--space-144) + var(--space-34)); } }
+  /* The headline sits right on the hero's bottom edge (Josie, 2026-10-26: "all the way at the bottom", flush; it replaces the lower phi line, a departure).
+     At line height 1 the baseline sits 0.1545 em above the line's foot and the round O and S dip 0.027 em below it, so the line hangs 0.125 em
+     below the edge: the lowest point of the letters touches the edge and nothing crosses into the section below. */
+  .hero-text { position: absolute; left: 0; right: 0; bottom: calc(var(--t-hero) * -0.125); pointer-events: none; }
   /* WORLD BUILDING / FOR BRANDS in Black, tracked -8%, BRANDS in Oblique Second to None (the cap heights match, so no rescale). */
   .hero h1 { font-family: var(--font-display); font-weight: 900; font-size: var(--t-hero); line-height: var(--lh-tight); letter-spacing: -0.08em; text-transform: uppercase; color: var(--ink); }
   .hero h1 > span { display: block; }
@@ -201,8 +203,8 @@
   .play { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 2.125rem; padding: 0 var(--space-13); background: var(--ink); color: var(--white); border: 0; border-radius: var(--radius); font-family: var(--font-mono); font-size: 0.875rem; line-height: var(--lh-mid); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
   .play-icon { flex: none; width: 0.625em; height: 0.75em; fill: currentColor; }
   .play[data-state="play"] .i-pause, .play[data-state="pause"] .i-play { display: none; }
-  /* Below 960 the button sits right, level with the headline's top, beside its short first lines and clear of BRANDS. From 960 the first line can reach
-     the right edge (960 to 1060 wide), so it moves to the top right, under the 144 top bar, clear of the logo block. */
+  /* Below 960 the button sits right, 61.8% down the hero: above FOR BRANDS, beside the short first lines when they rise that high. From 960 the first line can reach
+     the right edge (960 to 1060 wide), so it moves to the top right, under the 144 top bar. */
   .play-btn { position: absolute; z-index: 2; right: var(--margin); top: 61.8%; min-height: 2.75rem; }
   @media (min-width: 960px) { .play-btn { top: var(--space-144); } }
   .play-cursor { position: fixed; left: 0; top: 0; z-index: 30; pointer-events: none; }
@@ -388,7 +390,7 @@
   <!-- 1. Hero -->
   <section class="hero" id="home" aria-labelledby="hero-title">
     <!-- Drop in: media/lead.mp4, the hero reel. The video below plays it as a muted loop (paused under prefers-reduced-motion) and the PLAY label restarts it.
-         Add data-sound to the video once the reel has a sound track. Pick footage with a calm, light lower left so the ink headline on the lower phi line stays readable over it. -->
+         Add data-sound to the video once the reel has a sound track. Pick footage with a calm, light lower left so the ink headline on the bottom edge stays readable over it. -->
     <div class="slot slot-hero" role="img" aria-label="[Partner name], [what the loop shows]"><span>[Lead video: full screen, silent loop]</span></div>
     <video class="hero-video" src="media/lead.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
     <div class="wrap hero-text">
