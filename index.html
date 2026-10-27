@@ -10,8 +10,8 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- The style guide's type (2026-10-21): FK Grotesk and FK Grotesk Mono (Florian Karsten, paid, not bought yet). Until a web licence is bought, Hanken Grotesk (OFL) and IBM Plex Mono (OFL) stand in, as they do in the Figma style guide. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700&family=IBM+Plex+Mono&display=swap">
+<!-- The style guide's type (2026-10-21): FK Grotesk and FK Grotesk Mono (Florian Karsten, paid, not bought yet). Until a web licence is bought, Hanken Grotesk (OFL) and IBM Plex Mono (OFL) stand in, as they do in the Figma style guide. Black 900 since 2026-10-26: the hero, partner names and the Approach titles. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;700;900&family=IBM+Plex+Mono&display=swap">
 <style>
   /* Oblique Trace (brand/fonts/): the studio's own face. The hero set it until 2026-10-18; it is kept for advertising, and these faces stay declared and load only if a rule uses them. Cyborg Blop is the traced first face (formerly Oblique Trace Regular); it has no comma. */
   @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-UltraThin.otf") format("opentype"); font-weight: 100; font-style: normal; font-display: swap; }
@@ -21,10 +21,14 @@
   @font-face { font-family: "Oblique Trace"; src: url("fonts/ObliqueTrace-Heavy.otf") format("opentype"); font-weight: 900; font-style: normal; font-display: swap; }
   @font-face { font-family: "Cyborg Blop"; src: url("fonts/CyborgBlop-Regular.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
   @font-face { font-family: "Oblique Trace Tall"; src: url("fonts/ObliqueTraceTall-Heavy.otf") format("opentype"); font-weight: 900; font-style: normal; font-display: swap; }
+  /* Oblique Second to None (Josie, 2026-10-25): the secondary serif, for one or two emphasis words. Draft Regular, 85 characters, from 03_Typography_and_Licensing.
+     Its line metrics are set to Hanken Grotesk's, so a serif word never makes its line taller; the glyphs keep their own place on the baseline. */
+  @font-face { font-family: "Oblique Second to None"; src: url("fonts/ObliqueSecondToNone-Draft.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; ascent-override: 100%; descent-override: 30%; line-gap-override: 0%; }
 
-  /* Layout follows the Figma page Website - Live (Oblique Brand Style Guide file): the frames "oblique.so live, desktop 1440" and "oblique.so live, phone 390",
-     restyled on the golden ratio 2026-10-22 and 2026-10-23. Their Golden notes list every column, step, size and departure. Sections still follow koto.com's homepage (see koto-reference.md).
-     Type, color, copy and media are Oblique's own. */
+  /* Layout follows the Figma page Website - Live (Oblique Brand Style Guide file): since 2026-10-26 the frame "oblique.so live, desktop 1441, golden grid" (359:35),
+     the desktop frame snapped to the golden grid (margins 34, gutter 21, side column 514, content column 837, first screen 1440 x 890). Its Golden notes list every
+     step and departure. The file has no phone frame, so phones and tablets follow the desktop (Josie, 2026-10-26). Sections still follow koto.com's homepage
+     (see koto-reference.md). Type, color, copy and media are Oblique's own. */
   :root {
     --white: #FFFFFF;
     --ink: #0E0E14;
@@ -42,13 +46,15 @@
     --font-cond: var(--font-sans);
     --font-mono: "FK Grotesk Mono", "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
     --font-display: var(--font-sans);
+    --font-serif: "Oblique Second to None", Georgia, serif;
 
-    /* Type sizes on the golden ratio (Golden notes, 2026-10-22): body 18 and whole steps of phi, 11 18 29 47 76, from golden-ratio-design's contract for Oblique (examples/oblique.golden.json). Below 960 px the two biggest sizes step down one step, as in the phone frame. */
+    /* Type sizes on the golden ratio (Golden notes, 2026-10-22): body 18 and whole steps of phi, 11 18 29 47 76 123, from golden-ratio-design's contract for Oblique (examples/oblique.golden.json). Below 960 px the biggest sizes step down. */
     --t-label: 0.6875rem;   /* 11: labels and media notes */
     --t-body: 1.125rem;     /* 18: body, pills, links and small text (small text moved up to 18: 11 is too small for paragraphs on screen) */
     --t-big: 1.8125rem;     /* 29: the intro, partner lines, the Contact line, row and card titles */
     --t-section: 2.9375rem; /* 47: partner names, the Contact heading and result figures */
-    --t-hero: 4.75rem;      /* 76: the guide's Hero */
+    --t-hero: 7.6875rem;    /* 123: the hero headline, 18 x phi^4 (Josie, 2026-10-26) */
+    --hero-lines: 2;        /* WORLD BUILDING / FOR BRANDS; three lines on phones */
 
     /* Line heights, the guide's three stops: 1.0 for the hero, names, headings, figures and pills; 1.272 for big text, titles and labels; 1.618 for running text. */
     --lh-tight: 1;
@@ -65,6 +71,8 @@
     --space-89: 5.5625rem;
     --space-144: 9rem;
     --space-233: 14.5625rem;
+    --space-377: 23.5625rem;
+    --space-987: 61.6875rem;
 
     /* Phones: margin 21, gutter 13, one column of 348 at 390. From 720 px: margin 34, gutter 21; from 960 px the side column (514) and the content column (837) split the inner width 0.382 to 0.618. */
     --margin: var(--space-21);
@@ -77,11 +85,14 @@
     --measure: 32.3125rem;
   }
   @media (min-width: 720px) { :root { --margin: var(--space-34); --gap: var(--space-21); } }
-  /* Phones and tablets: the phone frame's sizes, Hero 47, and 29 for partner names, the Contact heading and result figures. */
-  @media (max-width: 959px) { :root { --t-section: 1.8125rem; --t-hero: 2.9375rem; } }
+  /* Tablets: Hero 76, and 29 for partner names, the Contact heading and result figures. Phones: Hero 60, the half step (Josie, 2026-10-26). */
+  @media (max-width: 959px) { :root { --t-section: 1.8125rem; --t-hero: 4.75rem; } }
+  @media (max-width: 719px) { :root { --t-hero: 3.75rem; --hero-lines: 3; } }
+  /* Under 360 wide FOR BRANDS at 60 (317 px) runs out of room, so the headline takes the step below, 47. */
+  @media (max-width: 359px) { :root { --t-hero: 2.9375rem; } }
 
   *, *::before, *::after { box-sizing: border-box; }
-  /* Hidden sections and partners stay in the markup (Josie hid them in both frames); this keeps a display rule below from showing them. */
+  /* Hidden parts (partner three) stay in the markup; this keeps a display rule below from showing them. */
   [hidden] { display: none !important; }
   html { background: var(--white); color: var(--grey); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
@@ -101,7 +112,8 @@
   ul, ol { padding: 0; list-style: none; }
   a { color: inherit; text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
   a:hover { color: var(--ink); }
-  /* The word oblique: set plain in the text around it, as the style guide sets it (Josie, 2026-10-21), lowercase, linked home. Underline only on hover and focus. */
+  /* The word oblique: set plain in the text around it, as the style guide sets it (Josie, 2026-10-21), linked home. Lowercase in running text; the intro opens with
+     Oblique in the serif (golden grid copy, 2026-10-26). Underline only on hover and focus. */
   .brand-word { color: inherit; text-decoration: none; }
   .brand-word:hover, .brand-word:focus-visible { text-decoration-line: underline; }
   /* Focus ring 2.618, the stroke run's step above 1.618 (Chrome draws it 2 px wide on standard screens). */
@@ -118,67 +130,69 @@
   /* Large statements: the guide's Big (Medium). */
   .big { font-family: var(--font-cond); font-weight: 500; font-size: var(--t-big); line-height: var(--lh-mid); letter-spacing: -0.01em; color: var(--ink); }
   .grey { color: var(--grey); }
+  /* Emphasis words in Oblique Second to None, Regular. Size, tracking and case come from the text around them. */
+  .serif { font-family: var(--font-serif); font-weight: 400; }
 
   /* Placeholders: every unknown stays visible in square brackets, on a frost highlight. Highlights follow the text size: 0.18 em each side (a departure the Golden notes log).
      .hl draws the same highlight round a filled name, as the frame keeps it on PROFITMIND. */
   .ph, .hl { background: var(--frost); border-radius: var(--radius-hl); padding: 0 0.18em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-  /* Media slots keep their formats, off the golden run (Golden notes): 16:9 for video, 4:3 for photos and partner video on phones, 5:3 for the portrait. */
+  /* The frame sets some placeholders as plain text, brackets only: the partner line, the IRL date and city, the address and the copyright. */
+  .ph.bare { background: none; padding: 0; }
+  /* Media slots are 1.618:1 at every width since 2026-10-26 (golden grid copy): partner video, Approach stills, IRL photos and the portrait. The hero is the full-bleed first screen. */
   .slot { position: relative; display: flex; align-items: flex-end; width: 100%; padding: var(--space-13); background: var(--frost); border: 1px dashed var(--line); color: var(--grey); font-size: var(--t-label); line-height: var(--lh-mid); border-radius: var(--radius-media); }
 
-  /* Top bar: logo loop, the pill tabs bottom-aligned beside it, clock right. The current section's pill fills dark. */
+  /* Top bar: logo loop, the tabs beside it at its top, the clock right after them.
+     On desktop the logo's corner sits on the margin at (34, 34) and the bar ends near 144 (138.4, no fill) (golden grid copy, 2026-10-26). */
   .topbar { position: fixed; inset: 0 0 auto 0; z-index: 20; pointer-events: none; }
-  .topbar-inner { display: flex; align-items: flex-start; gap: var(--space-13); padding: var(--space-21) var(--margin); }
-  /* Pill and clock height 44: the touch target minimum, a departure the Golden notes log. */
+  .topbar-inner { display: flex; align-items: flex-start; gap: var(--space-13); padding: var(--space-34) var(--margin); }
+  /* Tab and clock height 44: the touch target minimum, a departure the Golden notes log. */
   .panel { pointer-events: auto; display: flex; align-items: center; min-height: 2.75rem; background: var(--frost); border-radius: var(--radius); }
-  /* The logo is the shape-shift block from logo-shapeshift.js (row A, Josie 2026-10-22), in place of the turning loop since 2026-10-23. --logo scales the panel
-     (1.6, Josie 2026-10-17: "needs to be bigger"). The panel keeps its drawn size, 166.4 x 70.4 (a departure the Golden notes log), and has no fill. */
-  .wordmark { --logo: 1.6; position: relative; flex: none; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; background: transparent; color: var(--ink); text-decoration: none; }
-  /* Without scripts, or with reduced motion, the block rests in the panel as the wide shape, the panel's full width, as both frames draw the logo
-     (a departure: the smaller loop used 0.724, the spiral's eye). A white silhouette sits behind it, so its letters and lit faces stay white over the hero. */
-  .logo-live { position: absolute; left: 50%; top: 50%; width: calc(6.5rem * var(--logo)); height: auto; transform: translate(-50%, -50%); overflow: visible; }
-  /* With scripts it is fixed, and the script sets its size and place every frame. It passes behind the pill row (z-index 2 below). */
-  .logo-live.is-live { position: fixed; left: 0; top: 0; z-index: 1; pointer-events: none; }
-  .logo-js .logo-live:not(.is-live) { visibility: hidden; }
-  .tabs { position: relative; z-index: 2; pointer-events: auto; min-width: 0; align-self: flex-end; }
-  .tabs ul { display: flex; gap: var(--space-5); }
-  /* Hover (Josie, 2026-10-26, from a reference where nav text brightens): labels rest grey and turn ink on hover and focus. The current section's pill stays filled. */
-  .tabs a { display: flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-21); background: var(--line); border-radius: 999px; color: var(--grey); font-size: var(--t-body); font-weight: 500; line-height: var(--lh-tight); text-decoration: none; white-space: nowrap; transition: background-color 200ms ease, color 200ms ease; }
-  .tabs a:hover, .tabs a:focus-visible { color: var(--ink); }
-  .tabs a[aria-current="true"] { background: var(--ink); color: var(--white); }
-  .tabs a:focus-visible { outline-offset: 2px; border-radius: 999px; }
-  /* Section jumps land below the top bar. */
-  main section[id] { scroll-margin-top: 7.5rem; }
+  /* The logo is the turning loop again, small in the corner (Josie, 2026-10-26: "the little logo twirling in the left-hand corner"); the shape-shift block and its grow are off.
+     The loop is a square with the box in a band at x 20 to 86 percent, y 39 to 64 percent, the same in every frame of the loop. The panel crops to that band.
+     The loop and its poster are transparent, so the panel has no fill and the page shows through. --logo scales panel, loop and offsets together
+     (1.6, Josie 2026-10-17: "needs to be bigger"). The panel keeps its drawn size, 166.4 x 70.4 (a departure the Golden notes log). */
+  .wordmark { --logo: 1.6; position: relative; flex: none; width: calc(6.5rem * var(--logo)); height: calc(2.75rem * var(--logo)); padding: 0; overflow: hidden; background: transparent; color: var(--ink); text-decoration: none; }
+  .logo-loop { position: absolute; width: calc(9.6875rem * var(--logo)); height: calc(9.6875rem * var(--logo)); left: calc(-1.875rem * var(--logo)); top: calc(-3.515625rem * var(--logo)); }
+  /* Tabs (Josie, 2026-10-26): Koto's nav with the pills taken off. Mono capitals at 11, 34 apart, level with the top of the logo, in electric blue.
+     Each link keeps a 44 tall touch target. The current section and hover are underlined. */
+  .tabs { position: relative; z-index: 2; pointer-events: auto; min-width: 0; }
+  .tabs ul { display: flex; gap: var(--space-34); }
+  .tabs a { display: flex; align-items: center; min-height: 2.75rem; color: var(--blue); font-family: var(--font-mono); font-size: var(--t-label); line-height: var(--lh-mid); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; text-underline-offset: 0.35em; white-space: nowrap; }
+  .tabs a:hover, .tabs a:focus-visible, .tabs a[aria-current="true"] { color: var(--blue); text-decoration-line: underline; }
+  .tabs a:focus-visible { outline-offset: 2px; }
+  /* Section jumps land below the 144 top bar. */
+  main section[id] { scroll-margin-top: var(--space-144); }
   @media (max-width: 959px) { main section[id] { scroll-margin-top: 10.5rem; } }
-  .clock-panel { margin-left: auto; padding: 0 var(--space-13); color: var(--ink); }
-  .clock-panel time { font-variant-numeric: tabular-nums; }
-  /* Below 960: a white bar, the logo row on top and the pill row under it, which scrolls sideways when it runs out of room. Tablets keep the clock at the right of the logo row. */
+  /* The clock in Oblique Second to None, keeping the label's size, tracking and capitals. */
+  .clock-panel { padding: 0 var(--space-13); color: var(--ink); font-family: var(--font-serif); }
+  /* Below 960: a white bar, the logo row on top and the tab row under it, which scrolls sideways when it runs out of room. Tablets keep the clock at the right of the logo row. */
   @media (max-width: 959px) {
     .topbar-inner { flex-wrap: wrap; column-gap: 0; padding: var(--space-21) 0 var(--space-8); background: var(--white); pointer-events: auto; }
     .wordmark { margin-left: var(--margin); }
-    .tabs { order: 2; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; align-self: auto; }
+    .tabs { order: 2; flex-basis: 100%; overflow-x: auto; scrollbar-width: none; }
     .tabs::-webkit-scrollbar { display: none; }
     .tabs ul { padding-inline: var(--margin); width: max-content; }
-    .clock-panel { order: 1; margin-right: var(--margin); }
+    .clock-panel { order: 1; margin-left: auto; margin-right: var(--margin); }
   }
-  /* Phones: no clock, and the logo sits near the middle, 126 in at 390 wide, where Josie placed it in the phone frame. */
+  /* Phones: no clock; the logo stays in the left-hand corner on the margin, as on desktop (Josie, 2026-10-26).
+     Tabs 21 apart: at 34 the five need 440 px, so a 390 phone would scroll them (a departure from the desktop's 34). */
   @media (max-width: 719px) {
-    .wordmark { margin-left: calc(50% - 4.3125rem); }
+    .tabs ul { gap: var(--space-21); }
     .clock-panel { display: none; }
   }
 
-  /* 1. Hero: the first screen is a golden rectangle, 1440 x 890 on desktop and 390 x 631 on the phone, never taller than the screen. Full-bleed media, the headline at its foot. */
+  /* 1. Hero: the first screen is a golden rectangle, 1440 x 890 on desktop and 390 x 631 on the phone, never taller than the screen. Full-bleed media, the headline on its lower phi line. */
   .hero { position: relative; height: min(61.8vw, 100vh); height: min(61.8vw, 100svh); min-height: 23.5625rem; }
   @media (max-width: 719px) { .hero { height: min(161.8vw, 100vh); height: min(161.8vw, 100svh); } }
   .slot-hero { position: absolute; inset: 0; height: 100%; border-radius: 0; border: 0; border-bottom: 1px dashed var(--line); align-items: flex-end; justify-content: flex-end; padding: 0 var(--margin) var(--space-21); }
-  /* The headline's last line rests on the slot note's line on desktop, and 13 above it below 960: the offset is the slot's border, padding and note line. */
-  .hero-text { position: absolute; left: 0; right: 0; bottom: calc(1px + var(--space-21) + var(--t-label) * var(--lh-mid)); pointer-events: none; }
-  @media (max-width: 959px) { .hero-text { bottom: calc(1px + var(--space-21) + var(--t-label) * var(--lh-mid) + var(--space-13)); } }
-  .hero h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--t-hero); line-height: var(--lh-tight); letter-spacing: -0.02em; text-transform: uppercase; color: var(--ink); }
-  /* Desktop sets two lines, World building for / brands telling a story; narrower screens wrap each again (five lines on the phone). */
-  .hero h1 span { display: block; }
-  /* Where the block starts (2026-10-23): above the headline on its left edge, its foot one margin above the headline's top, front face this wide.
-     514 is the desktop golden column; phones take 0.618 of the screen. It grows up into the open hero, under the top bar. */
-  .hero-logo { position: absolute; left: var(--margin); bottom: 100%; margin-bottom: var(--margin); width: min(514px, 61.8vw); height: 1px; visibility: hidden; pointer-events: none; }
+  /* The headline's top sits on the lower phi line, 61.8% down the hero: y 550 at 1440 x 890 (Josie, 2026-10-26). Where the hero is too short for that
+     (short windows, 960 to 1041 wide, phones turned sideways), the headline lifts so its foot stays one margin above the hero's foot. */
+  .hero-text { position: absolute; left: 0; right: 0; top: min(61.8%, 100% - var(--hero-lines) * var(--t-hero) - var(--margin)); pointer-events: none; }
+  /* WORLD BUILDING / FOR BRANDS in Black, tracked -8%, BRANDS in Oblique Second to None (the cap heights match, so no rescale). */
+  .hero h1 { font-family: var(--font-display); font-weight: 900; font-size: var(--t-hero); line-height: var(--lh-tight); letter-spacing: -0.08em; text-transform: uppercase; color: var(--ink); }
+  .hero h1 > span { display: block; }
+  /* Phones set three lines: WORLD / BUILDING / FOR BRANDS. */
+  @media (max-width: 719px) { .hero-word { display: block; } }
   /* The lead video covers the slot. Without the file the script removes it and the slot shows. */
   .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   /* PLAY (Josie, 2026-10-26, from a reference): with a mouse, an ink label follows the pointer over the hero and stands in for it; a click restarts
@@ -187,18 +201,24 @@
   .play { display: inline-flex; align-items: center; gap: var(--space-8); min-height: 2.125rem; padding: 0 var(--space-13); background: var(--ink); color: var(--white); border: 0; border-radius: var(--radius); font-family: var(--font-mono); font-size: 0.875rem; line-height: var(--lh-mid); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
   .play-icon { flex: none; width: 0.625em; height: 0.75em; fill: currentColor; }
   .play[data-state="play"] .i-pause, .play[data-state="pause"] .i-play { display: none; }
-  /* The button sits at the hero's foot, right, where the headline's last line stays short of it below 960. From 960 the two-line headline can reach
-     the right edge (960 to 1060 wide), so it moves to the top right, under the top bar (the 7.5rem the section jumps use), clear of the logo block. */
-  .play-btn { position: absolute; z-index: 2; right: var(--margin); bottom: var(--space-21); min-height: 2.75rem; }
-  @media (min-width: 960px) { .play-btn { top: 7.5rem; bottom: auto; } }
+  /* Below 960 the button sits right, level with the headline's top, beside its short first lines and clear of BRANDS. From 960 the first line can reach
+     the right edge (960 to 1060 wide), so it moves to the top right, under the 144 top bar, clear of the logo block. */
+  .play-btn { position: absolute; z-index: 2; right: var(--margin); top: 61.8%; min-height: 2.75rem; }
+  @media (min-width: 960px) { .play-btn { top: var(--space-144); } }
   .play-cursor { position: fixed; left: 0; top: 0; z-index: 30; pointer-events: none; }
   .play-cursor .play { opacity: 0; scale: 0.618; transition: opacity 200ms ease, scale 200ms ease; }
   .play-cursor.is-on .play { opacity: 1; scale: 1; }
   .play-on .hero { cursor: none; }
   @media (hover: hover) and (pointer: fine) { .play-on .play-btn:not(:focus-visible) { opacity: 0; pointer-events: none; } }
 
-  /* 2. Intro statement: Koto. One large paragraph, ink then grey, across the inner width as the frames set it. */
+  /* 2. Intro statement: Koto. One large paragraph, ink then grey. Desktop sets it in the content column, 89 below the hero, in a band 377 tall. */
   .intro { padding-top: var(--space-55); }
+  @media (min-width: 960px) {
+    .intro { display: grid; grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); column-gap: var(--gap); min-height: var(--space-377); padding-top: var(--space-89); }
+    .intro > * { grid-column: 2; }
+  }
+  /* The line break before Quote On. is the frame's; narrower screens wrap on their own. */
+  @media (max-width: 959px) { .br-wide { display: none; } }
 
   /* 3. Partnerships: one lockup per partner. Name, More pill, line and figure on the left; a large video on the right. Phones stack them. */
   .work { padding-top: var(--space-55); }
@@ -207,14 +227,17 @@
   .partner { display: grid; grid-template-areas: "top" "media" "line" "stat"; padding-top: var(--space-21); border-top: 1px solid var(--line); }
   .partner + .partner { margin-top: var(--space-55); }
   .partner-top { grid-area: top; display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-13); }
-  .partner-name { font-family: var(--font-cond); font-weight: 700; font-size: var(--t-section); line-height: var(--lh-tight); letter-spacing: -0.01em; color: var(--ink); }
+  /* Partner names in Black capitals, tracked -8%, as the frame sets them. */
+  .partner-name { font-family: var(--font-cond); font-weight: 900; font-size: var(--t-section); line-height: var(--lh-tight); letter-spacing: -0.08em; text-transform: uppercase; color: var(--ink); }
+  /* The name's highlight is 1.2 em tall, as the frames draw it (56.4 at 47), and overhangs the 1.0 line without moving it. */
+  .partner-name .hl, .partner-name .ph { display: inline-block; padding: 0.1em 0.18em; margin-block: -0.1em; }
   .pill { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 var(--space-21); background: var(--line); border-radius: 999px; color: var(--ink); font-size: var(--t-body); font-weight: 500; line-height: var(--lh-tight); text-decoration: none; transition: background-color 200ms ease; }
   .pill:hover { background: #CDCDC6; color: var(--ink); }
   .partner-media { grid-area: media; margin-top: var(--space-13); }
-  .slot-video { aspect-ratio: 4 / 3; }
+  /* Partner video 1.618:1 at every width (golden grid copy, 2026-10-26): 837 x 517.29 on desktop. */
+  .slot-video { aspect-ratio: 1.618 / 1; }
+  /* The line is bare text, its last two words in Oblique Second to None. */
   .partner-line { grid-area: line; margin-top: var(--space-21); }
-  /* The frames set this line as bare text at the margin (Figma cannot highlight wrapped text), so the highlight hugs the words and keeps inside the column. */
-  .partner-line .ph { padding: 0; }
   .partner-stat { grid-area: stat; margin-top: var(--space-21); }
   .stat-figure { display: flex; align-items: center; gap: var(--space-8); font-family: var(--font-cond); font-weight: 700; font-size: var(--t-section); line-height: var(--lh-tight); letter-spacing: -0.01em; color: var(--ink); }
   /* Plus badge: a dark pill with a white cross, 1.618 to 1 at its figure's size, its cross 0.5 by 0.081 of its height (departures the Golden notes log). */
@@ -224,11 +247,15 @@
   /* As a flex item the figure's highlight would sit flush with its 1.0 line; the frames draw it 1.2 em tall, so it overhangs 0.1 em each way without moving anything. */
   .stat-figure .ph { padding-block: 0.1em; margin-block: -0.1em; }
   .stat-label { margin-top: var(--space-5); color: var(--grey); }
+  /* The label's highlight is 1.2 em tall as in the frames; its margins give back the rest of the 1.618 line. */
+  .stat-label .ph { display: inline-block; line-height: 1.2; margin-block: 0.209em; }
   /* Start a project: a frost panel 144 tall, its label bottom right. */
   .more { display: flex; align-items: flex-end; justify-content: flex-end; min-height: 9rem; margin-top: var(--space-55); padding: var(--space-21); background: var(--frost); border-radius: var(--radius); color: var(--ink); text-decoration: none; }
   .more:hover .label { text-decoration: underline; }
-  @media (min-width: 720px) { .slot-video { aspect-ratio: 16 / 9; } }
   @media (min-width: 960px) {
+    /* Desktop: 144 above the head, 89 between partners and before Start a project. */
+    .work { padding-top: var(--space-144); }
+    .more { margin-top: var(--space-89); }
     /* Text beside media splits 514 and 837 (0.382 and 0.618): name and More at the top of the text column, the line and the figure at its foot. */
     .partner { grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); grid-template-rows: auto 1fr auto auto; grid-template-areas: "top media" ". media" "line media" "stat media"; column-gap: var(--gap); }
     .partner + .partner { margin-top: var(--space-89); }
@@ -239,36 +266,40 @@
     .partner-stat { margin-top: var(--space-34); }
   }
 
-  /* 4. Approach: Koto's news grid. One large card, two small ones. Hidden in both frames for now. */
+  /* 4. Approach: Koto's news grid. One large card, two small ones. Shown since 2026-10-26, as the frame shows it. */
   .practices { padding-top: var(--space-21); }
   .practices-head { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-13); padding-bottom: var(--space-21); border-bottom: 1px solid var(--line); }
   .practices-head h2 { color: var(--ink); }
   .cards { display: grid; gap: var(--space-34) var(--gap); margin-top: var(--space-21); }
-  .slot-card { aspect-ratio: 16 / 9; }
-  /* 5. IRL reuses the Approach grid: three equal cards with 4:3 photos. Hidden in both frames for now. */
-  .slot-photo { aspect-ratio: 4 / 3; }
+  .slot-card { aspect-ratio: 1.618 / 1; }
+  /* 5. IRL reuses the Approach grid and its 1.618:1 media. Shown since 2026-10-26. */
+  .slot-photo { aspect-ratio: 1.618 / 1; }
   .practice h3 { margin-top: var(--space-13); color: var(--ink); }
+  /* Approach card titles in Black; IRL titles stay Regular, as in the frame. */
+  .approach .practice h3 { font-weight: 900; }
   .practice p { margin-top: var(--space-5); max-width: var(--measure); }
   .practice .services { color: var(--dusk); }
   .chip-row { display: flex; align-items: center; gap: var(--space-8); margin-top: var(--space-13); }
   .chip { display: inline-block; padding: 0.1875rem var(--space-5); background: var(--frost); border-radius: var(--radius-hl); color: var(--ink); }
   @media (min-width: 720px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .practice-lead { grid-column: 1 / -1; } .irl-cards .practice:first-child { grid-column: 1 / -1; } }
   @media (min-width: 960px) {
-    /* Approach and IRL start 233 below the section above on desktop, 21 on the phone. The lead card is 1.618 times the other two (594, 368, 368). */
+    /* Approach starts 233 below Partnerships, in a band 987 tall; IRL starts 89 below it and keeps 34 under its cards. 21 on the phone.
+       Both sets of cards sit on the golden columns: 514 on the side column, then the content column in two halves, 408 and 408 ((837 - 21) / 2, a departure the Golden notes log). */
     .practices { padding-top: var(--space-233); }
-    .cards { grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr) minmax(0, 1fr); }
+    .approach { min-height: var(--space-987); }
+    .irl { padding-top: var(--space-89); padding-bottom: var(--space-34); }
+    .cards { grid-template-columns: minmax(0, 514fr) minmax(0, 408fr) minmax(0, 408fr); }
     .practice-lead { grid-column: auto; }
-    .irl-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .irl-cards .practice:first-child { grid-column: auto; }
   }
 
-  /* 6. Contact: Koto. Heading and portrait card left, hairline rows right. It starts 21 below the Start a project panel. */
+  /* 6. Contact: Koto. Heading and portrait card left, hairline rows right. 21 above it on phones; on desktop 199 (144 + 55) above and 123 (34 + 89) below. */
   .contact { padding-top: var(--space-21); }
   .contact h2 { font-size: var(--t-section); line-height: var(--lh-tight); letter-spacing: -0.01em; }
   .contact-left { display: flex; flex-direction: column; gap: var(--space-34); }
-  /* Portrait 368 wide on desktop, the column's width below: 5:3, a departure the Golden notes log. */
-  .portrait { position: relative; width: min(100%, 23rem); }
-  .slot-portrait { aspect-ratio: 5 / 3; align-items: flex-start; }
+  /* Portrait 1.618:1, the side column's full 514 on desktop, the column's width below. */
+  .portrait { position: relative; width: min(100%, 32.125rem); }
+  .slot-portrait { aspect-ratio: 1.618 / 1; align-items: flex-start; }
   .portrait figcaption { position: absolute; left: var(--space-13); bottom: var(--space-13); color: var(--ink); }
   .rows { margin-top: var(--space-55); }
   .row { display: grid; gap: var(--space-5); padding: var(--space-21) 0 var(--space-55); border-top: 1px solid var(--line); }
@@ -295,6 +326,7 @@
     .row > h3 + :last-child { margin-bottom: 3px; }
   }
   @media (min-width: 960px) {
+    .contact { padding-top: calc(var(--space-144) + var(--space-55)); padding-bottom: calc(var(--space-34) + var(--space-89)); }
     .contact-grid { display: grid; grid-template-columns: minmax(0, 514fr) minmax(0, 837fr); column-gap: var(--gap); }
     .contact-left { justify-content: space-between; }
     .rows { margin-top: 0; padding-top: var(--space-5); }
@@ -330,16 +362,14 @@
     *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 </style>
-<!-- The logo script will move the block: hide the panel copy until its first frame, so it does not flash in the panel first. -->
-<script>if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('logo-js');</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="topbar">
   <div class="topbar-inner">
-    <!-- Logo v2 shape-shift, row A (Oblique V2 Brand Style Guide/logo/shapeshift/): today's wide shape, drawn by logo-shapeshift.js. The script below moves it between the hero and this panel. -->
-    <a class="panel wordmark" href="#main"><svg class="logo-live" viewBox="216 216 1941.394 564.966" fill="currentColor" aria-hidden="true" focusable="false"><polygon class="logo-back" fill="#FFFFFF" points="342.724,432.793 216,780.966 1732.282,780.966 2030.67,564.173 2157.394,216 641.112,216"/><path fill-rule="evenodd" d="M342.724,432.793L216,780.966L1159.14,780.966L1159.14,730.215C1140.23,734.439 1122.136,734.098 1103.433,728.508C1089.235,724.267 1075.613,717.257 1063.911,707.175C1054.098,698.723 1045.87,688.393 1039.445,676.455C1034.127,666.578 1030.235,655.36 1028.153,644.028C1026.444,634.718 1025.91,625.34 1026.647,615.868C1027.291,607.625 1028.725,599.347 1031.164,591.548C1046.133,543.659 1090.387,515.601 1133.921,515.601L1393.636,515.601L1393.636,629.521C1393.636,632.226 1394.204,635.14 1395.142,637.628C1396.049,640.034 1397.239,642.219 1398.906,644.028C1400.374,645.619 1402.294,646.993 1404.176,647.868C1415.001,652.911 1426.383,642.919 1426.383,629.948L1426.383,515.601L1509.191,515.601L1509.191,629.948C1509.191,642.343 1507.042,654.81 1502.792,666.215C1499.337,675.482 1494.59,684.131 1488.865,691.815C1483.528,698.983 1477.208,705.652 1470.421,711.015C1427.79,744.709 1365.071,737.345 1331.154,691.815C1325.086,683.67 1320.348,674.411 1316.851,664.508C1312.989,653.577 1310.829,641.737 1310.829,629.948L1310.829,598.375L1134.298,598.375C1129.751,598.375 1125.087,599.672 1121.124,602.215C1110.487,609.042 1105.748,623.51 1111.714,635.922C1112.9,638.392 1114.416,640.833 1116.231,642.749C1124.26,651.223 1136.666,652.694 1146.343,647.016C1150.081,644.823 1153.457,641.636 1155.753,637.629C1158.053,633.618 1158.982,629.134 1159.14,624.402L1241.948,624.402L1241.948,780.967L1732.282,780.966L1859.006,432.793L883.421,432.793L883.421,432.793L883.421,729.787L800.613,729.787L800.613,432.793L800.613,432.793L638.575,432.793L638.575,432.793L638.575,515.601C657.756,511.313 675.673,511.241 694.658,516.881C708.897,521.113 722.425,528.572 734.18,538.641C744.015,547.068 752.567,557.436 759.022,569.361C764.356,579.213 768.221,590.041 770.314,601.361C772.03,610.65 772.561,620.066 771.82,629.521C771.176,637.747 769.75,646.063 767.303,653.841C752.236,701.777 708.092,729.788 664.546,729.788L555.767,729.788L555.767,647.015L664.17,647.015C668.777,647.015 673.305,645.709 677.344,643.175C687.872,636.57 692.961,622.281 687.13,609.895C685.899,607.275 684.171,605.065 682.237,603.068C674.043,594.616 661.178,593.178 651.372,598.801C647.6,600.964 644.307,604.19 641.962,608.188C639.64,612.143 638.736,616.713 638.574,621.415L555.766,621.415L555.766,432.794L555.766,432.793ZM521.279,658.534C517.718,669.013 512.844,678.835 506.6,687.547C463.536,747.635 375.143,748.373 331.198,689.254C325.176,681.156 320.204,672.106 316.519,662.374C311.791,649.89 309.367,636.283 309.367,622.694C309.367,609.105 311.791,595.498 316.519,583.014C320.204,573.282 325.176,564.232 331.198,556.134C375.142,497.015 463.536,497.753 506.6,557.841C512.844,566.553 517.719,576.375 521.279,586.854C525.171,598.31 527.302,610.415 527.302,622.694C527.302,634.973 525.171,647.078 521.279,658.534ZM394.056,612.455C392.806,615.723 392.174,619.132 392.174,622.695C392.174,625.929 392.641,629.069 393.68,632.082C401.867,655.877 433.676,656.325 442.612,632.935C443.865,629.65 444.464,626.27 444.494,622.695C444.52,619.631 443.922,616.602 442.988,613.735C435.114,589.552 403.067,588.869 394.056,612.455ZM997.859,729.788L915.051,729.788L915.051,515.601L997.859,515.601L997.859,729.788ZM1745.426,666.641C1741.523,675.272 1736.818,683.277 1731.123,690.534C1702.016,727.616 1654.436,739.989 1612.934,726.374C1576.036,714.269 1545.013,681.672 1538.783,637.627C1537.62,629.414 1537.341,620.735 1538.03,612.454C1538.832,602.841 1540.872,593.68 1544.052,584.721C1547.519,574.967 1552.16,565.598 1557.979,557.414C1599.842,498.534 1685.461,496.443 1730.37,551.867C1736.291,559.176 1741.086,567.334 1745.05,576.187C1749.808,586.811 1753.293,598.463 1754.46,610.32C1755.792,623.862 1754.663,636.901 1751.449,650L1662.243,650L1662.243,666.64L1745.427,666.64ZM1668.264,607.334C1658.297,590.741 1635.291,590.19 1624.978,606.481C1622.772,609.967 1621.515,613.811 1620.838,618.001L1672.028,618.001C1671.366,614.033 1670.285,610.701 1668.264,607.334Z"/><polygon points="641.112,216 342.724,432.793 375.981,432.793 647.464,235.548 793.992,235.548 522.509,432.793 555.766,432.793 854.154,216"/><polygon points="936.963,216 638.575,432.793 671.832,432.793 943.315,235.548 1038.839,235.548 767.356,432.793 800.613,432.793 1099.001,216"/><polygon points="1181.809,216 883.421,432.793 916.678,432.793 1188.161,235.548 2097.232,235.548 1825.749,432.793 1859.006,432.793 2129.113,236.548 2014.345,551.871 1744.238,748.117 1732.282,780.966 2030.67,564.173 2157.394,216"/></svg><span class="vh">Oblique, back to top</span></a>
+    <!-- Logo v2 loop on transparent (sources: Website-assets/Logos-Website-2026/Oblique/): HEVC with alpha for Safari, VP9 WebM with alpha for Chrome, Edge and Firefox. Silent, loops, paused under prefers-reduced-motion; the transparent PNG poster is the still. -->
+    <a class="panel wordmark" href="#main"><video class="logo-loop" poster="media/oblique-logo-v2-poster.png" autoplay muted loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1"><source src="media/oblique-logo-v2-loop.mov" type='video/quicktime; codecs="hvc1"'><source src="media/oblique-logo-v2-loop.webm" type="video/webm"></video><span class="vh">Oblique, back to top</span></a>
     <nav class="tabs" aria-label="Sections">
       <ul>
         <li><a href="#home" aria-current="true">Home</a></li>
@@ -358,23 +388,24 @@
   <!-- 1. Hero -->
   <section class="hero" id="home" aria-labelledby="hero-title">
     <!-- Drop in: media/lead.mp4, the hero reel. The video below plays it as a muted loop (paused under prefers-reduced-motion) and the PLAY label restarts it.
-         Add data-sound to the video once the reel has a sound track. Pick footage with a calm, light lower left so the ink headline at the foot stays readable over it. -->
+         Add data-sound to the video once the reel has a sound track. Pick footage with a calm, light lower left so the ink headline on the lower phi line stays readable over it. -->
     <div class="slot slot-hero" role="img" aria-label="[Partner name], [what the loop shows]"><span>[Lead video: full screen, silent loop]</span></div>
     <video class="hero-video" src="media/lead.mp4" muted loop playsinline preload="auto" aria-hidden="true"></video>
     <div class="wrap hero-text">
-      <div class="hero-logo" aria-hidden="true"></div>
-      <h1 id="hero-title"><span>World building for</span> <span>brands telling a story</span></h1>
+      <h1 id="hero-title"><span><span class="hero-word">World</span> building</span> <span>for <span class="serif">brands</span></span></h1>
     </div>
     <button class="play play-btn" type="button" data-state="play" hidden><svg class="play-icon" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path class="i-play" d="M0 0L10 6L0 12Z"/><path class="i-pause" d="M0 0H3.5V12H0ZM6.5 0H10V12H6.5Z"/></svg><span class="play-text">Play</span><span class="vh"> the video</span></button>
     <div class="play-cursor" aria-hidden="true" hidden><span class="play" data-state="play"><svg class="play-icon" viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path class="i-play" d="M0 0L10 6L0 12Z"/><path class="i-pause" d="M0 0H3.5V12H0ZM6.5 0H10V12H6.5Z"/></svg><span class="play-text">Play</span></span></div>
   </section>
 
-  <!-- 2. Intro statement: ink, then grey. Partner names are folded in here. Text as Josie wrote it in the Figma frames (2026-10-23). -->
+  <!-- 2. Intro statement: ink, then grey. Partner names are folded in here. Text as Josie wrote it in the Figma frames (2026-10-23, revised in the golden grid copy 2026-10-26). The brand word and the grey sentence are in Oblique Second to None. -->
   <section class="wrap intro" aria-label="About Oblique">
-    <p class="big"><a class="brand-word" href="/">oblique</a> is an international brand incubator where late night dreams, create irl relationships with both digital and analog. Building everything from websites, brands, strategy, video and brand events for consumer brands and the agencies they hire. <span class="grey">Los Angeles, New York, Atlanta. Recent Partnerships with Profitmind, Neutrogena, and Quote On.</span></p>
+    <p class="big"><a class="brand-word serif" href="/">Oblique</a> is a brand incubator where late night dreams, create irl relationships with both digital and analog. Building everything from websites, brands, strategy, video and brand events for consumer brands and the agencies they hire. <span class="grey serif">Los Angeles, New York, Atlanta. Recent Partnerships with Profitmind, Neutrogena, and <br class="br-wide">Quote&nbsp;On.</span></p>
   </section>
 
-  <!-- 3. Partnerships: every client and case study is a partnership. Three to five. Copy one <article class="partner"> to add more, and update its ids. Partners two and three are hidden in both frames for now: remove hidden to show one. -->
+  <!-- 3. Partnerships: every client and case study is a partnership. Three to five. Copy one <article class="partner"> to add more, and update its ids. Partner three is hidden (the frame shows two): remove hidden to show it.
+       Each line ends on two words in Oblique Second to None, and the result figure's number is in it too (any word after the number stays in the sans). -->
+
   <section class="wrap work" id="partnerships" aria-labelledby="work-title">
     <div class="work-head">
       <h2 class="label" id="work-title">Partnerships</h2>
@@ -386,28 +417,28 @@
         <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about Profitmind</span></a>
       </div>
       <div class="partner-media">
-        <!-- Drop in: media/project-1.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-1.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
-        <div class="slot slot-video" role="img" aria-label="Profitmind promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
+        <!-- Drop in: media/project-1.mp4, 1.618:1 promo video (muted, loop, playsinline, poster media/project-1.jpg, a visible pause button, paused under prefers-reduced-motion). -->
+        <div class="slot slot-video" role="img" aria-label="Profitmind promo video, [what it shows]"><span>[Promo video, 1.618:1]</span></div>
       </div>
-      <p class="partner-line big"><span class="ph" data-todo="one sentence on what the partnership achieved">[One sentence on what the partnership achieved]</span></p>
+      <p class="partner-line big"><span class="ph bare" data-todo="one sentence on what the partnership achieved">[One sentence on what the <span class="serif">partnership achieved</span>]</span></p>
       <div class="partner-stat">
-        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
+        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph serif" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
         <p class="stat-label"><span class="ph" data-todo="what the figure measures">[What the figure measures]</span></p>
       </div>
     </article>
 
-    <article class="partner" id="project-2" aria-labelledby="project-2-name" hidden>
+    <article class="partner" id="project-2" aria-labelledby="project-2-name">
       <div class="partner-top">
         <h3 class="partner-name" id="project-2-name"><span class="ph" data-todo="partner name, with permission">[Partner two]</span></h3>
         <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner two]</span></a>
       </div>
       <div class="partner-media">
-        <!-- Drop in: media/project-2.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-2.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
-        <div class="slot slot-video" role="img" aria-label="[Partner two] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
+        <!-- Drop in: media/project-2.mp4, 1.618:1 promo video (muted, loop, playsinline, poster media/project-2.jpg, a visible pause button, paused under prefers-reduced-motion). -->
+        <div class="slot slot-video" role="img" aria-label="[Partner two] promo video, [what it shows]"><span>[Promo video, 1.618:1]</span></div>
       </div>
-      <p class="partner-line big"><span class="ph" data-todo="one sentence on what the partnership achieved">[One sentence on what the partnership achieved]</span></p>
+      <p class="partner-line big"><span class="ph bare" data-todo="one sentence on what the partnership achieved">[One sentence on what the <span class="serif">partnership achieved</span>]</span></p>
       <div class="partner-stat">
-        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
+        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph serif" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
         <p class="stat-label"><span class="ph" data-todo="what the figure measures">[What the figure measures]</span></p>
       </div>
     </article>
@@ -418,12 +449,12 @@
         <a class="pill" href="#" data-todo="case study page URL">More<span class="vh"> about [Partner three]</span></a>
       </div>
       <div class="partner-media">
-        <!-- Drop in: media/project-3.mp4, 16:9 promo video (muted, loop, playsinline, poster media/project-3.jpg, a visible pause button, paused under prefers-reduced-motion). Phones crop it to 4:3. -->
-        <div class="slot slot-video" role="img" aria-label="[Partner three] promo video, [what it shows]"><span>[Promo video, 16:9]</span></div>
+        <!-- Drop in: media/project-3.mp4, 1.618:1 promo video (muted, loop, playsinline, poster media/project-3.jpg, a visible pause button, paused under prefers-reduced-motion). -->
+        <div class="slot slot-video" role="img" aria-label="[Partner three] promo video, [what it shows]"><span>[Promo video, 1.618:1]</span></div>
       </div>
-      <p class="partner-line big"><span class="ph" data-todo="one sentence on what the partnership achieved">[One sentence on what the partnership achieved]</span></p>
+      <p class="partner-line big"><span class="ph bare" data-todo="one sentence on what the partnership achieved">[One sentence on what the <span class="serif">partnership achieved</span>]</span></p>
       <div class="partner-stat">
-        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
+        <p class="stat-figure"><span class="plus" aria-hidden="true"></span><span class="ph serif" data-todo="result figure, with a real source and the partner's permission">[Result figure]</span></p>
         <p class="stat-label"><span class="ph" data-todo="what the figure measures">[What the figure measures]</span></p>
       </div>
     </article>
@@ -431,66 +462,66 @@
     <a class="more" href="#contact"><span class="label">Start a project</span></a>
   </section>
 
-  <!-- 4. Approach: Koto's news grid, one card per practice. Hidden in both frames for now: remove hidden to show it. -->
-  <section class="wrap practices" id="approach" aria-labelledby="practices-title" hidden>
+  <!-- 4. Approach: Koto's news grid, one card per practice. Shown since 2026-10-26, as the golden grid copy shows it. -->
+  <section class="wrap practices approach" id="approach" aria-labelledby="practices-title">
     <div class="practices-head">
       <h2 class="label" id="practices-title">Approach</h2>
       <p class="label">Digital, content and experiential</p>
     </div>
     <div class="cards">
       <article class="practice practice-lead" aria-labelledby="practice-digital">
-        <!-- Drop in: media/practice-digital.jpg, 16:9, a still from the digital example project. -->
-        <div class="slot slot-card" role="img" aria-label="[Partner one] site, [what it shows]"><span>[Digital example: still, 16:9]</span></div>
+        <!-- Drop in: media/practice-digital.jpg, 1.618:1, a still from the digital example project. -->
+        <div class="slot slot-card" role="img" aria-label="[Partner one] site, [what it shows]"><span>[Digital example: still, 1.618:1]</span></div>
         <h3 id="practice-digital">Digital</h3>
         <p><a class="brand-word" href="/">oblique</a> designs and builds sites and interfaces. A landing page or a WordPress build fits in a one-week sprint.</p>
         <p class="services">Landing pages, WordPress builds, user experience, interface design.</p>
         <p class="chip-row"><span class="chip label">Example</span><a href="#project-1" data-todo="point to the digital partnership"><span class="ph">[Partner one]</span></a></p>
       </article>
       <article class="practice" aria-labelledby="practice-content">
-        <!-- Drop in: media/practice-content.jpg, 16:9. -->
-        <div class="slot slot-card" role="img" aria-label="[Partner two] content, [what it shows]"><span>[Content example: still, 16:9]</span></div>
+        <!-- Drop in: media/practice-content.jpg, 1.618:1. -->
+        <div class="slot slot-card" role="img" aria-label="[Partner two] content, [what it shows]"><span>[Content example: still, 1.618:1]</span></div>
         <h3 id="practice-content">Content</h3>
         <p>Content work runs on the monthly plan.</p>
         <p class="services">Motion graphics, video production, editing, social assets.</p>
         <p class="chip-row"><span class="chip label">Example</span><a href="#project-2" data-todo="point to the content partnership"><span class="ph">[Partner two]</span></a></p>
       </article>
       <article class="practice" aria-labelledby="practice-experiential">
-        <!-- Drop in: media/practice-experiential.jpg, 16:9. -->
-        <div class="slot slot-card" role="img" aria-label="[Partner three] event, [what it shows]"><span>[Experiential example: still, 16:9]</span></div>
+        <!-- Drop in: media/practice-experiential.jpg, 1.618:1. -->
+        <div class="slot slot-card" role="img" aria-label="[Partner three] event, [what it shows]"><span>[Experiential example: still, 1.618:1]</span></div>
         <h3 id="practice-experiential">Experiential</h3>
         <p><a class="brand-word" href="/">oblique</a> designs the space and plans the event around it.</p>
         <p class="services">Brand activations and events, pop-ups, interactive installations and booths, exhibition design. Event production covers venue scouting, vendor sourcing, permitting, renderings and floorplans, and fabrication management.</p>
-        <p class="chip-row"><span class="chip label">Example</span><a href="#project-3" data-todo="point to the experiential partnership"><span class="ph">[Partner three]</span></a></p>
+        <p class="chip-row"><span class="chip label">Example</span><a href="#partnerships" data-todo="point to #project-3 once partner three is shown"><span class="ph">[Partner three]</span></a></p>
       </article>
     </div>
   </section>
 
-  <!-- 5. IRL: events, pop-ups and installations. Copy one <article> to add more, and update its ids. Hidden in both frames for now: remove hidden to show it. -->
-  <section class="wrap practices irl" id="irl" aria-labelledby="irl-title" hidden>
+  <!-- 5. IRL: events, pop-ups and installations. Copy one <article> to add more, and update its ids. Shown since 2026-10-26, as the golden grid copy shows it. -->
+  <section class="wrap practices irl" id="irl" aria-labelledby="irl-title">
     <div class="practices-head">
       <h2 class="label" id="irl-title">IRL</h2>
       <p class="label">Events, pop-ups and installations</p>
     </div>
     <div class="cards irl-cards">
       <article class="practice" aria-labelledby="irl-1">
-        <!-- Drop in: media/irl-1.jpg, 4:3, a photo from the day. -->
-        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 4:3]</span></div>
+        <!-- Drop in: media/irl-1.jpg, 1.618:1, a photo from the day. -->
+        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 1.618:1]</span></div>
         <h3 id="irl-1"><span class="ph" data-todo="event name">[Event name]</span></h3>
-        <p class="label services"><span class="ph" data-todo="month and year">[Month Year]</span>, <span class="ph" data-todo="city">[City]</span></p>
+        <p class="label services"><span class="ph bare" data-todo="month and year">[Month Year]</span>, <span class="ph bare" data-todo="city">[City]</span></p>
         <p><span class="ph" data-todo="one sentence on what happened">[One sentence on what happened]</span></p>
       </article>
       <article class="practice" aria-labelledby="irl-2">
-        <!-- Drop in: media/irl-2.jpg, 4:3, a photo from the day. -->
-        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 4:3]</span></div>
+        <!-- Drop in: media/irl-2.jpg, 1.618:1, a photo from the day. -->
+        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 1.618:1]</span></div>
         <h3 id="irl-2"><span class="ph" data-todo="event name">[Event name]</span></h3>
-        <p class="label services"><span class="ph" data-todo="month and year">[Month Year]</span>, <span class="ph" data-todo="city">[City]</span></p>
+        <p class="label services"><span class="ph bare" data-todo="month and year">[Month Year]</span>, <span class="ph bare" data-todo="city">[City]</span></p>
         <p><span class="ph" data-todo="one sentence on what happened">[One sentence on what happened]</span></p>
       </article>
       <article class="practice" aria-labelledby="irl-3">
-        <!-- Drop in: media/irl-3.jpg, 4:3, a photo from the day. -->
-        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 4:3]</span></div>
+        <!-- Drop in: media/irl-3.jpg, 1.618:1, a photo from the day. -->
+        <div class="slot slot-photo" role="img" aria-label="[Event name], [what the photo shows]"><span>[Photo from the day, 1.618:1]</span></div>
         <h3 id="irl-3"><span class="ph" data-todo="event name">[Event name]</span></h3>
-        <p class="label services"><span class="ph" data-todo="month and year">[Month Year]</span>, <span class="ph" data-todo="city">[City]</span></p>
+        <p class="label services"><span class="ph bare" data-todo="month and year">[Month Year]</span>, <span class="ph bare" data-todo="city">[City]</span></p>
         <p><span class="ph" data-todo="one sentence on what happened">[One sentence on what happened]</span></p>
       </article>
     </div>
@@ -505,9 +536,9 @@
           <p class="grey">Start a project with Josie.</p>
         </hgroup>
         <figure class="portrait">
-          <!-- Drop in: media/josie.jpg, 5:3, with a calm, dark lower left for the caption. Alt: "Josie [surname], founder of Oblique". -->
+          <!-- Drop in: media/josie.jpg, 1.618:1, with a calm, dark lower left for the caption. Alt: "Josie [surname], founder of Oblique". -->
           <div class="slot slot-portrait" role="img" aria-label="Josie, founder of Oblique"><span>[Portrait of Josie]</span></div>
-          <figcaption class="label">Josie <span class="ph" data-todo="surname, confirm it goes public">[surname]</span>, founder<br><span class="ph">[address]</span>@oblique.so</figcaption>
+          <figcaption class="label">Josie <span class="ph" data-todo="surname, confirm it goes public">[surname]</span>, founder<br><span class="ph bare">[address]</span>@oblique.so</figcaption>
         </figure>
       </div>
       <ul class="rows" role="list">
@@ -515,7 +546,7 @@
           <h3>New projects</h3>
           <p class="row-line">Write to Josie directly, or pick a time for the first conversation.</p>
           <p class="row-links">
-            <a class="email-link" id="email-link" href="mailto:%5Baddress%5D@oblique.so" data-todo="email address on oblique.so"><span class="ph">[address]</span>@oblique.so</a>
+            <a class="email-link" id="email-link" href="mailto:%5Baddress%5D@oblique.so" data-todo="email address on oblique.so"><span class="ph bare">[address]</span>@oblique.so</a>
             <button class="copy" type="button" hidden><span class="copy-label">Copy</span><span class="vh"> email address</span></button>
             <a class="book" href="#" data-todo="booking URL">Book a call</a> <span class="ph">[booking page URL]</span>
             <span class="copy-note" id="copy-note"></span>
@@ -586,155 +617,15 @@
     </div>
   </div>
   <div class="footer-inner">
-    <p>© <span class="ph" data-todo="copyright holder: Oblique or the legal entity that owns it">[copyright holder]</span></p>
+    <p>© <span class="ph bare" data-todo="copyright holder: Oblique or the legal entity that owns it">[copyright holder]</span></p>
   </div>
 </footer>
 
-<script src="logo-shapeshift.js"></script>
 <script>
-  /* Logo (Josie, 2026-10-22, after the AI in Design Report 2026 logo): the block from logo-shapeshift.js, row A, word at the bottom.
-     At the top of the page it sits above the headline on its left edge (2026-10-23, since the headline moved to the foot of the hero) and
-     grows once through the golden steps (wide, 2.618, 1.618, square, then rests on 1.618), only as far as the room between the top bar
-     and the headline allows. Scrolling the first 0.618 of the hero carries it into the top bar panel and back to the wide shape; scrolling
-     up reverses it, and it never runs over the headline. With reduced motion, no script, or no room in the hero (short landscape screens)
-     it stays in the panel. */
+  /* Logo loop: paused under prefers-reduced-motion, where the poster stands still. */
   (function () {
-    var root = document.documentElement;
-    var logo = document.querySelector('.logo-live');
-    var panel = document.querySelector('.wordmark');
-    var slot = document.querySelector('.hero-logo');
-    var bar = document.querySelector('.topbar-inner');
-    var hero = document.getElementById('home');
-    var title = document.getElementById('hero-title');
-    var L = window.ObliqueLogo;
-    if (!logo || !panel || !slot || !bar || !hero || !title || !L || !window.requestAnimationFrame || !window.matchMedia) {
-      root.classList.remove('logo-js');
-      return;
-    }
-
-    var face = logo.querySelector('path');
-    var back = logo.querySelector('.logo-back');
-    var depth = logo.querySelectorAll('polygon:not(.logo-back)');
-    var S = L.steps;
-    var STEPS = [S.wide, S.phi2, S.phi, S.square, S.phi];
-    var MOVE = 618, HOLD = 382;   /* ms: each step of the opening moves for 0.618 s, then holds for 0.382 s */
-    var NAV = 1;                  /* in the panel the wide shape spans the panel's 6.5rem x --logo width, as in the CSS and both frames */
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var now = function () { return window.performance ? performance.now() : 0; };
-    var on = false, frame = 0, lastH = -1, drawn = '';
-    /* The opening plays once: 'wait' until the first visible frame after the fonts, then 'run', then 'done'. */
-    var opening = 'wait', start = 0, runSeq = null, fontsIn = !(document.fonts && document.fonts.ready);
-
-    var boxW = function (h) { return L.K * h + L.W0 + L.DX; };
-    var boxH = function (h) { return h - L.DY; };
-    var smooth = function (t) { t = t < 0 ? 0 : t > 1 ? 1 : t; return t * t * (3 - 2 * t); };
-    var inOut = function (t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(2 - 2 * t, 3) / 2; };
-
-    var shape = function (h) {
-      var r = L.build(h);
-      face.setAttribute('d', r.d);
-      for (var i = 0; i < depth.length; i++) depth[i].setAttribute('points', r.depth[i]);
-      if (back) back.setAttribute('points', r.hull);
-      logo.setAttribute('viewBox', r.box.join(' '));
-      return r.box;
-    };
-
-    var draw = function (h, s, x, y) {
-      var key = h.toFixed(2) + ' ' + s.toFixed(5) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1);
-      if (key === drawn) return;
-      drawn = key;
-      if (Math.abs(h - lastH) > 0.005) { shape(h); lastH = h; }
-      var w = boxW(h) * s, tall = boxH(h) * s;
-      logo.style.width = w + 'px';
-      logo.style.height = tall + 'px';
-      logo.style.transform = 'translate3d(' + x + 'px,' + (y - tall) + 'px,0)';
-    };
-
-    /* The opening: the height t ms in, through the steps that fit; -1 once it is over. */
-    var play = function (t, seq) {
-      if (t < HOLD) return seq[0];
-      for (var i = 1; i < seq.length; i++) {
-        var t0 = HOLD + (i - 1) * (MOVE + HOLD);
-        if (t < t0 + MOVE) return seq[i - 1] + (seq[i] - seq[i - 1]) * inOut((t - t0) / MOVE);
-        if (t < t0 + MOVE + HOLD) return seq[i];
-      }
-      return -1;
-    };
-
-    /* time is the frame's timestamp; undefined when called straight from enable(). */
-    var render = function (time) {
-      frame = 0;
-      if (!on) return;
-      var pr = panel.getBoundingClientRect();
-      if (pr.width <= 0) return;
-      var sr = slot.getBoundingClientRect();
-      var tt = title.getBoundingClientRect().top;
-      var margin = parseFloat(getComputedStyle(slot).marginBottom) || 0;
-      var y0 = window.pageYOffset;
-      /* Room above the headline in the open hero: from a margin under the top bar down to the slot's foot, as at the top of the page. */
-      var room = sr.bottom + y0 - bar.getBoundingClientRect().bottom - margin;
-      var navW = 6.5 * (parseFloat(getComputedStyle(root).fontSize) || 16) * (parseFloat(getComputedStyle(panel).getPropertyValue('--logo')) || 1.6) * NAV;
-      var sNav = navW / boxW(S.wide);
-      /* The hero needs the slot on screen at the top of the page and room above the headline for the wide shape at panel size. */
-      var heroOK = sr.bottom + y0 <= window.innerHeight + 0.5 && room >= boxH(S.wide) * sNav;
-      /* The front face as wide as the hero box, smaller where needed so the 2.618 step still fits above the headline. */
-      var sHero = Math.max(sNav, Math.min(sr.width / L.W0, room / boxH(S.phi2)));
-      /* Steps that fit: between the top bar and the headline, and inside the right margin. */
-      var seq = [];
-      STEPS.forEach(function (h) {
-        if (boxH(h) * sHero <= room + 0.5 && sr.left + boxW(h) * sHero <= root.clientWidth - margin + 0.5 && seq[seq.length - 1] !== h) seq.push(h);
-      });
-      if (!seq.length) seq.push(S.wide);
-      var hHero = seq[seq.length - 1];
-
-      if (opening === 'wait') {
-        var jump = location.hash && location.hash !== '#home' && location.hash !== '#main';
-        if (!heroOK || y0 >= 1 || jump) opening = 'done';
-        else if (time !== undefined && fontsIn && document.visibilityState !== 'hidden') { opening = 'run'; start = time; runSeq = seq; }
-        else hHero = seq[0];
-      }
-      if (opening === 'run') {
-        var o = play((time === undefined ? now() : time) - start, runSeq);
-        if (o < 0) opening = 'done'; else hHero = o;
-      }
-
-      var e = heroOK ? smooth(y0 / (hero.offsetHeight * 0.618)) : 1;
-      var h = hHero + (S.wide - hHero) * e;
-      var s = Math.exp(Math.log(sHero) + (Math.log(sNav) - Math.log(sHero)) * e);
-      var navX = pr.left + (pr.width - navW) / 2;
-      var navY = pr.top + (pr.height + boxH(S.wide) * sNav) / 2;
-      var y = sr.bottom + (navY - sr.bottom) * e;
-      /* It never runs over the headline: its foot stays a margin above the headline's top until the headline has gone under the top bar. */
-      if (heroOK && e < 1) y = Math.min(y, Math.max(tt - margin, navY));
-      draw(h, s, sr.left + (navX - sr.left) * e, y);
-      if (opening !== 'done') frame = requestAnimationFrame(render);
-    };
-
-    var queue = function () { if (on && !frame) frame = requestAnimationFrame(render); };
-    var enable = function () {
-      on = true;
-      logo.classList.add('is-live');
-      render();
-    };
-    var disable = function () {
-      on = false; lastH = -1; drawn = '';
-      if (opening !== 'done') opening = 'done';
-      if (frame) cancelAnimationFrame(frame);
-      frame = 0;
-      shape(S.wide);
-      logo.classList.remove('is-live');
-      root.classList.remove('logo-js');
-      logo.style.width = logo.style.height = logo.style.transform = '';
-    };
-    var sync = function () { if (reduce.matches) { if (on) disable(); } else if (!on) enable(); };
-    var fonts = function () { fontsIn = true; queue(); };
-
-    window.addEventListener('scroll', queue, { passive: true });
-    window.addEventListener('resize', queue);
-    if (reduce.addEventListener) reduce.addEventListener('change', sync);
-    else if (reduce.addListener) reduce.addListener(sync);
-    if (!fontsIn) { document.fonts.ready.then(fonts); setTimeout(fonts, 1000); }
-    sync();
+    var v = document.querySelector('.logo-loop');
+    if (v && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
   })();
 
 (function () {
@@ -762,7 +653,7 @@
     } catch (e) { clock.parentNode.hidden = true; }
   }
 
-  /* Tabs: fill the pill for the section in the middle of the screen. */
+  /* Tabs: underline the tab for the section in the middle of the screen. */
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tabs a'));
   if (tabs.length && observe) {
     var setTab = function (id) {
